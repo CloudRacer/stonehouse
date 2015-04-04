@@ -10,11 +10,13 @@ public class ProviderConnection {
 	public ProviderConnection() {
 	}
 
-	private static InitialContext getInitialContext(String url)
+	private static InitialContext getInitialContext(String url, String username, String password)
 			throws NamingException {
 		Hashtable<String, String> env = new Hashtable<String, String>();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, getJndiFactory());
 		env.put(Context.PROVIDER_URL, url);
+		env.put( Context.SECURITY_PRINCIPAL, username );
+		env.put( Context.SECURITY_CREDENTIALS, password );
 		return new InitialContext(env);
 	}
 
