@@ -10,8 +10,4 @@ import uk.org.mcdonnell.stonehouse.service.ProviderConnectionTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ ProviderConnectionTest.class })
 public class ProviderTest{
-	
-	public static Test suite() {
-		return new TestSuite(ProviderConnectionTest.class);
-	}
 }
