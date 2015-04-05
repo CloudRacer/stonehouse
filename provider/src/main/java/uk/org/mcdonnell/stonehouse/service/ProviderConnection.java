@@ -7,28 +7,32 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 public class ProviderConnection {
+	Hashtable<String, String> jndiInitialContextEnvironment;
+	InitialContext jndiInitialContext;
+
 	public ProviderConnection() {
 	}
 
-	private static InitialContext getInitialContext(String url, String username, String password)
-			throws NamingException {
-		Hashtable<String, String> env = new Hashtable<String, String>();
-		env.put(Context.INITIAL_CONTEXT_FACTORY, getJndiFactory());
-		env.put(Context.PROVIDER_URL, url);
-		env.put( Context.SECURITY_PRINCIPAL, username );
-		env.put( Context.SECURITY_CREDENTIALS, password );
-		return new InitialContext(env);
+	public void setJNDIInitialContextEnvironment(
+			Hashtable<String, String> jndiInitialContextEnvironment) {
+		this.jndiInitialContextEnvironment = jndiInitialContextEnvironment;
 	}
 
-	public static String getJndiFactory() {
-		final String JNDI_FACTORY = "weblogic.jndi.WLInitialContextFactory";
+	private Hashtable<String, String> getJNDIInitialContextEnvironment() {
+		if (jndiInitialContextEnvironment == null) {
+			jndiInitialContextEnvironment = new Hashtable<String, String>();
+		}
 
-		return JNDI_FACTORY;
+		return jndiInitialContextEnvironment;
 	}
 
-	public static String getJmsFactory() {
-		final String JMS_FACTORY = "weblogic.examples.jms.QueueConnectionFactory";
+	public InitialContext getJNDIInitialContext() throws NamingException {
+		if (jndiInitialContext == null) {
+			jndiInitialContext = new InitialContext(
+					getJNDIInitialContextEnvironment());
+		}
 
-		return JMS_FACTORY;
+		return jndiInitialContext;
+
 	}
 }

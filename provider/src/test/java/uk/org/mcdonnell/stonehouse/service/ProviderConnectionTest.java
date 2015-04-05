@@ -1,44 +1,63 @@
 package uk.org.mcdonnell.stonehouse.service;
 
-import javax.naming.InitialContext;
-
+import java.util.Hashtable;
+import javax.naming.Context;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import uk.org.mcdonnell.common.generic.PropertyManipulation;
 import static org.junit.Assert.assertTrue;
 import junitx.util.PrivateAccessor;
 
 public class ProviderConnectionTest {
 
+	@SuppressWarnings("unchecked")
 	@Test
-	public void testProviderConnection() {
-		final String PROTOCOL = "t3";
-		final String SERVER_NAME = "localhost";
-		final int PORT = 7001;
-		final String URL = String.format("%s://%s:%s", PROTOCOL, SERVER_NAME,
-				PORT);
-		final String USERNAME = "weblogic";
-		final String PASSWORD = "welcome1";
-		final String JMS_SERVER_NAME = "WM6JMSServer";
-		final String JMS_MODULE_NAME = "WM6_QUEUES";
-
-		InitialContext initialContext;
+	public void testProviderJNDIInitialContextEnvironmentIsEmpty() {
+		Hashtable<String, String> emptyJNDIInitialContextEnvironment;
 		try {
-			initialContext = (InitialContext) PrivateAccessor.invoke(
-					ProviderConnection.class, "getInitialContext", new Class[] {
-							String.class, String.class, String.class },
-					new Object[] { URL, USERNAME, PASSWORD });
-
-			assertTrue(initialContext.getEnvironment().containsKey(
-					"java.naming.provider.url"));
-			assertEquals(
-					initialContext.getEnvironment().get(
-							"java.naming.provider.url"), URL);
-
 			ProviderConnection providerConnection = new ProviderConnection();
+
+			emptyJNDIInitialContextEnvironment = (Hashtable<String, String>) PrivateAccessor
+					.invoke(providerConnection,
+							"getJNDIInitialContextEnvironment", new Class[] {},
+							new Object[] {});
+
+			assertTrue(emptyJNDIInitialContextEnvironment != null
+					&& emptyJNDIInitialContextEnvironment.isEmpty());
 		} catch (Throwable e) {
 			Assert.fail("Error occurred: " + e.getMessage());
 		}
+	}
+
+	@Test
+	public void testGetAllProviders() throws Throwable {
+		ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+		PropertyManipulation propertyManipulation;
+		providerConnectionFactory.getAllProviders();
+
+		assertTrue(providerConnectionFactory.getAllProviders() != null);
+		assertTrue(!providerConnectionFactory.getAllProviders().isEmpty());
+
+		propertyManipulation = (PropertyManipulation) PrivateAccessor.invoke(
+				providerConnectionFactory, "getPropertyManipulation",
+				new Class[] {}, new Object[] {});
+
+		assertTrue(propertyManipulation.containsKey(String.format("1.%s",
+				Context.INITIAL_CONTEXT_FACTORY)));
+		assertTrue(propertyManipulation.containsKey(String.format("1.%s",
+				Context.PROVIDER_URL)));
+		assertTrue(propertyManipulation.containsKey(String.format("1.%s",
+				Context.SECURITY_PRINCIPAL)));
+		assertTrue(propertyManipulation.containsKey(String.format("1.%s",
+				Context.SECURITY_CREDENTIALS)));
+		assertTrue(propertyManipulation.containsKey(String.format("2.%s",
+				Context.INITIAL_CONTEXT_FACTORY)));
+		assertTrue(propertyManipulation.containsKey(String.format("2.%s",
+				Context.PROVIDER_URL)));
+		assertTrue(propertyManipulation.containsKey(String.format("2.%s",
+				Context.SECURITY_PRINCIPAL)));
+		assertTrue(propertyManipulation.containsKey(String.format("2.%s",
+				Context.SECURITY_CREDENTIALS)));
 	}
 }

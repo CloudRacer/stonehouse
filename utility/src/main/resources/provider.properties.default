@@ -1,4 +1,8 @@
-java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
-java.naming.provider.url=t3://localhost:7001
-java.naming.security.principal=weblogic
-java.naming.security.credentials=welcome1
+1.java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
+1.java.naming.provider.url=t3://localhost:7001
+1.java.naming.security.principal=weblogic
+1.java.naming.security.credentials=welcome1
+2.java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
+2.java.naming.provider.url=t3://localhost:7003
+2.java.naming.security.principal=weblogic
+2.java.naming.security.credentials=welcome1
