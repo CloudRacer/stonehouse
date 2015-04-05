@@ -7,7 +7,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.org.mcdonnell.stonehouse</groupId>
-	<artifactId>MessageManipulation</artifactId>
+	<artifactId>provider</artifactId>
 	<packaging>jar</packaging>
-	<name>MessageManipulation</name>
+	<name>Provider</name>
 </project>
