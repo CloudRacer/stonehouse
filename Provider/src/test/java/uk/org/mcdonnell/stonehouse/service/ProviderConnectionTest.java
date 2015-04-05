@@ -2,21 +2,15 @@ package uk.org.mcdonnell.stonehouse.service;
 
 import javax.naming.InitialContext;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import junitx.util.PrivateAccessor;
 
-public class ProviderConnectionTest extends TestCase {
+public class ProviderConnectionTest {
 
-	public ProviderConnectionTest(String testName) {
-		super(testName);
-	}
-
-	public static Test suite() {
-		return new TestSuite(ProviderConnectionTest.class);
-	}
-
+	@Test
 	public void testProviderConnection() throws Throwable {
 		final String PROTOCOL = "t3";
 		final String SERVER_NAME = "localhost";
