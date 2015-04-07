@@ -9,7 +9,6 @@
 	<groupId>uk.org.mcdonnell.stonehouse</groupId>
 	<artifactId>provider</artifactId>
 	<packaging>jar</packaging>
-	<name>Provider</name>
 
 	<dependencies>
 		<dependency>

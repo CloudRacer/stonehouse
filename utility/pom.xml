@@ -9,5 +9,4 @@
 	<groupId>uk.org.mcdonnell.stonehouse</groupId>
 	<artifactId>utility</artifactId>
 	<packaging>jar</packaging>
-	<name>Utility</name>
 </project>
