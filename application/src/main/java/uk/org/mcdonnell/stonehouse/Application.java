@@ -1,14 +1,21 @@
 package uk.org.mcdonnell.stonehouse;
 
-/**
- * Hello world!
- * 
- */
+import java.io.IOException;
+import java.util.InvalidPropertiesFormatException;
+import java.util.List;
+
+import uk.org.mcdonnell.stonehouse.service.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.service.ProviderConnectionFactory;
+
 public class Application
 {
 
-    public static void main(String[] args)
-    {
-        System.out.println("Hello World!");
+    public List<ProviderConnection> getAllQueues() throws InvalidPropertiesFormatException, IOException {
+        ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+
+        return providerConnectionFactory.getAllProviders();
     }
+
+    public static void main(String[] args)
+    {}
 }
