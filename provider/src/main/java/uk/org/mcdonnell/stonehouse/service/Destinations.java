@@ -9,9 +9,13 @@ import javax.naming.NamingException;
 
 public class Destinations {
 
+    public enum DestinationType {
+        QUEUE, TOPIC
+    };
+
     private ProviderConnection providerConnection = null;
 
-    private Hashtable<String, Destination> queueList = null;
+    private Hashtable<String, Destination> destinationList = null;
 
     @SuppressWarnings("unused")
     private Destinations() {
@@ -22,31 +26,33 @@ public class Destinations {
         setProviderConnection(providerConnection);
     }
 
-    public Hashtable<String, Destination> getAllQueues() throws NamingException, JMSException {
-        if (queueList == null) {
-            queueList = new Hashtable<String, Destination>();
+    public Hashtable<String, Destination> getAllDestinations() throws NamingException, JMSException {
+        if (getDestinationList() == null) {
+            setDestinationList(new Hashtable<String, Destination>());
 
             try {
                 // TODO: Add this to the configuration file - one for each provider.
-                final String JNDI_ROOT = "queue";
-                NamingEnumeration<NameClassPair> jndiRootList = getProviderConnection().getJNDIInitialContext().list(JNDI_ROOT);
-
-                while (jndiRootList.hasMore()) {
-                    final String queueName = jndiRootList.next().getName();
-
-                    // TODO: Identify Queues and add them to the Queue list.
-                    final Destination queue = new Destination(queueName);
-                    queueList.put(queue.getQueueName(), queue);
-                }
+                addDestinations(DestinationType.QUEUE, getProviderConnection().getJNDIInitialContext().list("queue"));
+                addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list("topic"));
             } catch (Exception e) {
                 // Rest the the Queue List.
-                queueList = null;
+                setDestinationList(null);
 
                 throw e;
             }
         }
 
-        return queueList;
+        return getDestinationList();
+    }
+
+    private void addDestinations(DestinationType destinationType, NamingEnumeration<NameClassPair> jndiList) throws NamingException {
+        while (jndiList.hasMore()) {
+            final String jndiName = jndiList.next().getName();
+
+            // TODO: Identify Queues and add them to the Queue list.
+            final Destination destination = new Destination(destinationType, jndiName);
+            getDestinationList().put(destination.getDestinationName(), destination);
+        }
     }
 
     private ProviderConnection getProviderConnection() {
@@ -55,5 +61,13 @@ public class Destinations {
 
     private void setProviderConnection(ProviderConnection providerConnection) {
         this.providerConnection = providerConnection;
+    }
+
+    private Hashtable<String, Destination> getDestinationList() {
+        return destinationList;
+    }
+
+    private void setDestinationList(Hashtable<String, Destination> destinationList) {
+        this.destinationList = destinationList;
     }
 }

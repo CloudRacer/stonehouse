@@ -21,10 +21,11 @@ public class DestinationsTest {
         for (ProviderConnection providerConnection : providerConnections) {
             Destinations queues = new Destinations(providerConnection);
 
-            Iterator<Entry<String, Destination>> it = queues.getAllQueues().entrySet().iterator();
-            while (it.hasNext())
-                System.out.println(it.next().getValue().getQueueName());
+            Iterator<Entry<String, Destination>> it = queues.getAllDestinations().entrySet().iterator();
+            while (it.hasNext()) {
+                Destination nextEntry = it.next().getValue();
+                System.out.println(String.format("%s - %s", nextEntry.getDestinationType().toString(), nextEntry.getDestinationName()));
+            }
         }
-
     }
 }
