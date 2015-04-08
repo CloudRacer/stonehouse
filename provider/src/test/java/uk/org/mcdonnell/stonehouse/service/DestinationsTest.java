@@ -19,9 +19,9 @@ public class DestinationsTest {
 
         List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
         for (ProviderConnection providerConnection : providerConnections) {
-            Destinations queues = new Destinations(providerConnection);
+            Destinations destinations = new Destinations(providerConnection);
 
-            Iterator<Entry<String, Destination>> it = queues.getAllDestinations().entrySet().iterator();
+            Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {
                 Destination nextEntry = it.next().getValue();
                 System.out.println(String.format("%s - %s", nextEntry.getDestinationType().toString(), nextEntry.getDestinationName()));
