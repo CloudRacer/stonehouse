@@ -1,7 +1,16 @@
 package uk.org.mcdonnell.stonehouse.service;
 
+import java.util.Enumeration;
+
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Queue;
+import javax.jms.QueueBrowser;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSession;
+import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -26,11 +35,25 @@ public class Destination {
 
     public long getTotalNumberOfPendingMessages() throws NamingException, JMSException {
         InitialContext initialContext = getProviderConnection().getJNDIInitialContext();
-
-        ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+        ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
         connectionFactory.createConnection();
+        QueueConnectionFactory queueConnectionFactory =
+                (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+        QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
+        QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+        // TODO: Again, put the JNDI queue root into configuration.
+        Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", getDestinationName()));
+        QueueBrowser queueBrowser = queueSession.createBrowser(queue);
+        @SuppressWarnings("unchecked")
+        Enumeration<Message> enumeration = queueBrowser.getEnumeration();
 
-        return 0;
+        long messageCount = 0;
+        while (enumeration.hasMoreElements()) {
+            enumeration.nextElement();
+            messageCount++;
+        }
+
+        return messageCount;
     }
 
     public String getDestinationName() {
