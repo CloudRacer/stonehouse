@@ -23,8 +23,8 @@ public class DestinationsTest {
 
             Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {
-                Destination nextEntry = it.next().getValue();
-                System.out.println(String.format("%s - %s", nextEntry.getDestinationType().toString(), nextEntry.getDestinationName()));
+                Destination destination = it.next().getValue();
+                System.out.println(String.format("%s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getTotalNumberOfPendingMessages()));
             }
         }
     }
