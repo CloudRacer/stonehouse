@@ -34,23 +34,27 @@ public class Destination {
     }
 
     public long getTotalNumberOfPendingMessages() throws NamingException, JMSException {
-        InitialContext initialContext = getProviderConnection().getJNDIInitialContext();
-        ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
-        connectionFactory.createConnection();
-        QueueConnectionFactory queueConnectionFactory =
-                (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
-        QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
-        QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-        // TODO: Again, put the JNDI queue root into configuration.
-        Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", getDestinationName()));
-        QueueBrowser queueBrowser = queueSession.createBrowser(queue);
-        @SuppressWarnings("unchecked")
-        Enumeration<Message> enumeration = queueBrowser.getEnumeration();
-
         long messageCount = 0;
-        while (enumeration.hasMoreElements()) {
-            enumeration.nextElement();
-            messageCount++;
+
+        // TODO: count the messages in a Topic also.
+        if (getDestinationType() == DestinationType.QUEUE) {
+            InitialContext initialContext = getProviderConnection().getJNDIInitialContext();
+            ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+            connectionFactory.createConnection();
+            QueueConnectionFactory queueConnectionFactory =
+                    (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+            QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
+            QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+            // TODO: Again, put the JNDI queue root into configuration.
+            Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", getDestinationName()));
+            QueueBrowser queueBrowser = queueSession.createBrowser(queue);
+            @SuppressWarnings("unchecked")
+            Enumeration<Message> enumeration = queueBrowser.getEnumeration();
+
+            while (enumeration.hasMoreElements()) {
+                enumeration.nextElement();
+                messageCount++;
+            }
         }
 
         return messageCount;
