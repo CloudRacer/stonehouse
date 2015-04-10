@@ -14,7 +14,7 @@ import uk.org.mcdonnell.stonehouse.service.ProviderConnectionFactory;
 public class QueueTest {
 
     @Test
-    public void testGetAllQueue() throws InvalidPropertiesFormatException, IOException, NamingException {
+    public void testGetAllQueues() throws InvalidPropertiesFormatException, IOException, NamingException {
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
         List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
