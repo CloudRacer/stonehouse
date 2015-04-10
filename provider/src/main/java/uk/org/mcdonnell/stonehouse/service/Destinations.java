@@ -50,7 +50,7 @@ public class Destinations {
             final String jndiName = jndiList.next().getName();
 
             // TODO: Identify Queues and add them to the Queue list.
-            final Destination destination = new Destination(destinationType, jndiName);
+            final Destination destination = new Destination(getProviderConnection(), destinationType, jndiName);
             getDestinationList().put(destination.getDestinationName(), destination);
         }
     }
