@@ -61,7 +61,6 @@ public class DistribuedQueueBrowser {
         return new JmsMessageEnumeration(getMessageEnumeratorMap());
     }
 
-    @SuppressWarnings("unchecked")
     private Map<String, Enumeration<Message>> getMessageEnumeratorMap() throws JMSException,
             NamingException {
         Map<String, Enumeration<Message>> serverMessageMap = new HashMap<String, Enumeration<Message>>();
@@ -70,7 +69,9 @@ public class DistribuedQueueBrowser {
             String serverDq[] = StringUtils.split(queueName, "@");
             Queue queue = (Queue) ctx.lookup(queueName);
             javax.jms.QueueBrowser qb = session.createBrowser(queue);
-            serverMessageMap.put(serverDq[0], qb.getEnumeration());
+            @SuppressWarnings("unchecked")
+            Enumeration<Message> enumeration = qb.getEnumeration();
+            serverMessageMap.put(serverDq[0], enumeration);
         }
 
         return serverMessageMap;
