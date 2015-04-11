@@ -17,7 +17,7 @@ public class ProviderConnectionTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testProviderJNDIInitialContextEnvironmentIsEmpty() {
+    public void testProviderJNDIInitialContextEnvironmentIsNotEmpty() {
         Hashtable<String, String> emptyJNDIInitialContextEnvironment;
         try {
             ProviderConnection providerConnection = new ProviderConnection();
