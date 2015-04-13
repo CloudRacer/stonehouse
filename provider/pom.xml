@@ -16,12 +16,5 @@
 			<artifactId>utility</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-		<!-- JMS -->
-		<dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>jms-api</artifactId>
-			<version>1.1-rev-1</version>
-		</dependency>
 	</dependencies>
 </project>
