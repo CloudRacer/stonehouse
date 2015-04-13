@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ PluginsTest.class })
+@Suite.SuiteClasses({ BootstrapTest.class })
 public class PluginsTest
 {
 }
