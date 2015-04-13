@@ -3,7 +3,7 @@
 mvn -B archetype:generate \
   -DarchetypeGroupId=org.apache.maven.archetypes \
   -DgroupId=uk.org.mcdonnell.stonehouse \
-  -DartifactId=application \
-  -Dname=Application
+  -DartifactId=plugins \
+  -Dname=Plugins
 
 read -p "Press [Enter] key to start continue..."
