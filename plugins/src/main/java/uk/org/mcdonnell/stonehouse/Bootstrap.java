@@ -17,6 +17,6 @@ public class Bootstrap
         // TODO: Convert to a relative path.
         final File pluginFolder = new File("C:/src/stonehouse/stonehouse/plugins/plugins");
 
-        ClasspathLoader.getInstance().addFolder(pluginFolder);
+        ClasspathLoader.getInstance().addFolder(pluginFolder, ".*.jar");
     }
 }

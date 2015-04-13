@@ -16,7 +16,9 @@ public class ClasspathLoader
     // Singleton initialiser
     static
     {
-        instance = new SystemClasspath();
+        if (instance == null) {
+            instance = new SystemClasspath();
+        }
     }
 
     /**
@@ -55,8 +57,8 @@ public class ClasspathLoader
          * @throws MalformedURLException
          * @throws IOException
          */
-        public void addFolder(final File pluginFolder) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
-            List<File> fileList = FileManipulation.getFileList(pluginFolder, ".*.jar");
+        public void addFolder(final File pluginFolder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+            List<File> fileList = FileManipulation.getFileList(pluginFolder, fileFilter);
 
             for (File file : fileList) {
                 System.out.println(String.format("Adding the jar \"%s\" to the JVM classpath...", file.getAbsolutePath()));
@@ -84,6 +86,23 @@ public class ClasspathLoader
         {
             File f = new File(filename);
             addURL(f.toURI().toURL());
+        }
+
+        public String getClasspath() {
+            ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
+            URL[] urls = ((URLClassLoader) sysClassLoader).getURLs();
+            String classpath = null;
+
+            for (int i = 0; i < urls.length; i++)
+            {
+                if (classpath != null) {
+                    classpath = classpath + ":" + urls[i].getFile();
+                } else {
+                    classpath = urls[i].getFile();
+                }
+            }
+
+            return classpath;
         }
 
         /**
