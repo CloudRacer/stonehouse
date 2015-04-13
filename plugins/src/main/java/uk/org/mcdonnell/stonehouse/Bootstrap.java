@@ -14,8 +14,7 @@ import uk.org.mcdonnell.common.generic.ClasspathLoader;
 public class Bootstrap
 {
     public Bootstrap() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
-        // TODO: Convert to a relative path.
-        final File pluginFolder = new File("C:/src/stonehouse/stonehouse/plugins/plugins");
+        final File pluginFolder = new File("../plugins");
 
         ClasspathLoader.getInstance().addFolder(pluginFolder, ".*.jar");
     }
