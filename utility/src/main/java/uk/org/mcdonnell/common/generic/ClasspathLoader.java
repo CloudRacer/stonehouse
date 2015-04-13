@@ -7,15 +7,16 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.List;
 
 public class ClasspathLoader
 {
-    private static ClasspathLoader instance;
+    private static SystemClasspath instance;
 
     // Singleton initialiser
     static
     {
-        instance = new ClasspathLoader();
+        instance = new SystemClasspath();
     }
 
     /**
@@ -23,7 +24,7 @@ public class ClasspathLoader
      * 
      * @return Singleton
      */
-    public static ClasspathLoader getInstance()
+    public static SystemClasspath getInstance()
     {
         return instance;
     }
@@ -31,7 +32,7 @@ public class ClasspathLoader
     /**
      * Add a JAR to the JVM classpath, during runtime.
      */
-    protected static class SystemClasspath
+    public static class SystemClasspath
     {
         private SystemClasspath()
         {}
@@ -43,6 +44,26 @@ public class ClasspathLoader
         {
                 URL.class
         };
+
+        /**
+         * Add all the files in the folder that match the filter.
+         * 
+         * @param pluginFolder
+         * @throws NoSuchMethodException
+         * @throws IllegalAccessException
+         * @throws InvocationTargetException
+         * @throws MalformedURLException
+         * @throws IOException
+         */
+        public void addFolder(final File pluginFolder) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+            List<File> fileList = FileManipulation.getFileList(pluginFolder, ".*.jar");
+
+            for (File file : fileList) {
+                System.out.println(String.format("Adding the jar \"%s\" to the JVM classpath...", file.getAbsolutePath()));
+
+                SystemClasspath.addFile(file.getAbsolutePath());
+            }
+        }
 
         /**
          * Adds a file to the JVM classpath.
