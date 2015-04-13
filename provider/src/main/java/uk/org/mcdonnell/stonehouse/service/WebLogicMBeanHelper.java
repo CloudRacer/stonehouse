@@ -18,12 +18,12 @@ import javax.naming.Context;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class WeblogicMBeanHelper {
+public class WebLogicMBeanHelper {
     private final MBeanServerConnection connection;
     private final JMXConnector connector;
     private final ObjectName service;
 
-    public WeblogicMBeanHelper(String url, String userName, String password) {
+    public WebLogicMBeanHelper(String url, String userName, String password) {
         try {
             service = new ObjectName(
                     "com.bea:Name=DomainRuntimeService,Type=weblogic.management.mbeanservers.domainruntime.DomainRuntimeServiceMBean");
@@ -46,8 +46,9 @@ public class WeblogicMBeanHelper {
                 ? hostNamePort[2]
                 : hostNamePort[1];
 
+        // service:jmx:iiop://172.31.49.24:7001/jndi/weblogic.management.mbeanservers.runtime
         String jndiroot = "/jndi/";
-        String mserver = "weblogic.management.mbeanservers.domainruntime";
+        String mserver = "weblogic.management.mbeanservers.runtime";
         JMXServiceURL serviceURL;
 
         try {
