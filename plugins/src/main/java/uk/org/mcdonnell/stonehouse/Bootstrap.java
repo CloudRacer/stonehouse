@@ -14,7 +14,7 @@ import uk.org.mcdonnell.common.generic.ClasspathLoader;
 public class Bootstrap
 {
     public Bootstrap() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
-        final File pluginFolder = new File("../plugins");
+        final File pluginFolder = new File("./plugins");
 
         ClasspathLoader.getInstance().addFolder(pluginFolder, ".*.jar");
     }
