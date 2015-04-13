@@ -13,9 +13,18 @@ import uk.org.mcdonnell.common.generic.ClasspathLoader;
  */
 public class Bootstrap
 {
-    public Bootstrap() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
-        final File pluginFolder = new File("./plugins");
+    private final File DEFAULT_FOLDER = new File("./plugins");
+    private final String DEFAULT_FILE_FILTER = ".*.jar";
 
-        ClasspathLoader.getInstance().addFolder(pluginFolder, ".*.jar");
+    public Bootstrap() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
+        new Bootstrap(DEFAULT_FOLDER, DEFAULT_FILE_FILTER);
+    }
+
+    public Bootstrap(File folder) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+        new Bootstrap(folder, DEFAULT_FILE_FILTER);
+    }
+
+    private Bootstrap(File folder, String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+        ClasspathLoader.getInstance().addFolder(folder, fileFilter);
     }
 }

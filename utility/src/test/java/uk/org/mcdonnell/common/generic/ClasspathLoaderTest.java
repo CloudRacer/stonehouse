@@ -1,5 +1,6 @@
 package uk.org.mcdonnell.common.generic;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -22,7 +23,7 @@ public class ClasspathLoaderTest {
 
             List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
             for (File file : files) {
-                assertTrue(classpath.indexOf(file.getName()) != 0);
+                assertFalse(classpath.indexOf(file.getName()) == 0);
             }
 
             assertTrue(true);
