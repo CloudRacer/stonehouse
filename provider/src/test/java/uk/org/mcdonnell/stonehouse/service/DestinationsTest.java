@@ -11,6 +11,11 @@ import javax.naming.NamingException;
 
 import org.junit.Test;
 
+import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.service.destination.Destination;
+import uk.org.mcdonnell.stonehouse.service.destination.Destinations;
+
 public class DestinationsTest {
 
     @Test
@@ -24,7 +29,7 @@ public class DestinationsTest {
             Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {
                 Destination destination = it.next().getValue();
-                System.out.println(String.format("%s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getTotalNumberOfPendingMessages()));
+                System.out.println(String.format("%s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getPending()));
             }
         }
     }

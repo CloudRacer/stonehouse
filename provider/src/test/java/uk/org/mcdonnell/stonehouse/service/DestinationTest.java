@@ -10,7 +10,10 @@ import javax.naming.NamingException;
 
 import org.junit.Test;
 
-import uk.org.mcdonnell.stonehouse.service.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.service.destination.Destination;
+import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
 
 public class DestinationTest {
 
@@ -24,8 +27,6 @@ public class DestinationTest {
 
         assertTrue(destination.getDestinationName() == TEST_QUEUE_NAME);
 
-        destination.getTotalNumberOfPendingMessages();
-
-        System.out.println(String.format("%s: %s.", destination.getDestinationName(), destination.getTotalNumberOfPendingMessages()));
+        System.out.println(String.format("%s: %s.", destination.getDestinationName(), destination.getPending()));
     }
 }

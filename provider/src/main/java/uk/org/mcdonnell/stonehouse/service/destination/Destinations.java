@@ -47,7 +47,7 @@ public class Destinations {
         return getDestinationList();
     }
 
-    private void addDestinations(DestinationType destinationType, NamingEnumeration<NameClassPair> jndiList) throws NamingException {
+    private void addDestinations(DestinationType destinationType, NamingEnumeration<NameClassPair> jndiList) throws NamingException, JMSException {
         while (jndiList.hasMore()) {
             final String jndiName = jndiList.next().getName();
 
