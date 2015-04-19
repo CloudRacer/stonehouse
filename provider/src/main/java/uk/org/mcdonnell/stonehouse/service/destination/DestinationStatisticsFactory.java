@@ -11,7 +11,7 @@ import javax.naming.NamingException;
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
 
-public abstract class DestinationStatisticsFactory extends DestinationStatistics {
+public abstract class DestinationStatisticsFactory extends DestinationStatisticsImpl {
 
     private ProviderConnection providerConnection = null;
     private DestinationType destinationType;
@@ -41,9 +41,9 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
         if (getProviderConnection().getJNDIInitialContext().getEnvironment().get("java.naming.factory.initial").toString().toLowerCase().startsWith("weblogic")) {
             System.out.println("JMS Message Provider vendor identified as WebLogic.");
             // TODO: get statistics by reflection and use the WebLogic native helper method instead of the default routine.
-            super.setPending(getTotalNumberOfPendingMessages());
+            setPending(getTotalNumberOfPendingMessages());
         } else {
-            super.setPending(getTotalNumberOfPendingMessages());
+            setPending(getTotalNumberOfPendingMessages());
         }
     }
 

@@ -8,9 +8,10 @@ import javax.naming.NamingException;
 import uk.org.mcdonnell.common.generic.Reflect;
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.destination.Destination;
+import uk.org.mcdonnell.stonehouse.service.destination.DestinationStatistics;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
 
-public class WebLogicDestinationStatistics extends Destination {
+public class WebLogicDestinationStatistics extends Destination implements DestinationStatistics {
 
     private WebLogicDestinationStatistics() throws NamingException, JMSException {
         super(null, null, null);
@@ -18,7 +19,6 @@ public class WebLogicDestinationStatistics extends Destination {
 
     public WebLogicDestinationStatistics(ProviderConnection providerConnection, DestinationType destinationType, String queueName) throws NamingException, JMSException {
         super(providerConnection, destinationType, queueName);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -38,7 +38,7 @@ public class WebLogicDestinationStatistics extends Destination {
         Reflect jmsJMSDestinationRuntimeMBeanObjectReflection = new Reflect(jmsJMSDestinationRuntimeMBeanObject);
         long messageCurrentCount = (long) jmsJMSDestinationRuntimeMBeanObjectReflection.executeMethod(JMS_MESSAGE_CURRENT_COUNT_METHOD_NAME);
 
-        super.setPending(messageCurrentCount);
+        setPending(messageCurrentCount);
 
         return super.getPending();
     }
