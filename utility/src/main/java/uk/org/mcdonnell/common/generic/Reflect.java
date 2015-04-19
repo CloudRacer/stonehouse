@@ -17,6 +17,10 @@ public class Reflect {
         setClassName(className);
     }
 
+    public Reflect(Object object) {
+        reflectedObject = object;
+    }
+
     public Object executeMethod(String methodName) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         return executeMethod(methodName, null);
     }
