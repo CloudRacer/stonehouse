@@ -1,5 +1,6 @@
 package uk.org.mcdonnell.stonehouse.service.destination;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 
 import javax.jms.JMSException;
@@ -28,7 +29,7 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
         setDestinationName(destinationName);
     }
 
-    private ProviderConnection getProviderConnection() {
+    public ProviderConnection getProviderConnection() {
         return providerConnection;
     }
 
@@ -82,7 +83,7 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
     }
 
     @Override
-    public long getPending() {
+    public long getPending() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, NamingException {
         try {
             fetchStatistics();
         } catch (NamingException e) {

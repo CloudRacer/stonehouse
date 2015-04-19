@@ -1,6 +1,7 @@
 package uk.org.mcdonnell.stonehouse.service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +20,7 @@ import uk.org.mcdonnell.stonehouse.service.destination.Destinations;
 public class DestinationsTest {
 
     @Test
-    public void getAllQueues() throws NamingException, InvalidPropertiesFormatException, IOException, JMSException {
+    public void getAllQueues() throws NamingException, InvalidPropertiesFormatException, IOException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
         List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();

@@ -3,6 +3,7 @@ package uk.org.mcdonnell.stonehouse.service;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.InvalidPropertiesFormatException;
 
 import javax.jms.JMSException;
@@ -18,7 +19,7 @@ import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationT
 public class DestinationTest {
 
     @Test
-    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException {
+    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         final String TEST_QUEUE_NAME = "Conv10AMSendQueue";
 
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
