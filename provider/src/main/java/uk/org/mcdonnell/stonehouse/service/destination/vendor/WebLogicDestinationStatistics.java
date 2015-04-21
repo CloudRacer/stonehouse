@@ -28,18 +28,23 @@ public class WebLogicDestinationStatistics extends Destination implements Destin
         final String JMS_MESSAGE_CURRENT_COUNT_METHOD_NAME = "getMessagesCurrentCount";
 
         // Instantiate JMS helper object.
-        Reflect jmsHelperReflection = new Reflect(JMS_HELPER_CLASS_NAME);
-        Object[] paramaters = new Object[] { getProviderConnection().getJNDIInitialContext(), getDestinationName() };
+        Class<?> contextClass = Class.forName("javax.naming.Context");
+        // Class<?> sessionClass = Class.forName("javax.jms.Session");
+        Class<?> jmsDestinationClass = Class.forName("javax.jms.Destination");
+        // Class<?>[] parameters = { contextClass, String.class, String.class };
+        Class<?>[] parameters = { contextClass, jmsDestinationClass };
+        Reflect jmsHelperReflection = new Reflect(JMS_HELPER_CLASS_NAME, JMS_DESTINATION_METHOD_NAME, parameters);
 
         // Instantiate Destination object.
-        Object jmsJMSDestinationRuntimeMBeanObject = jmsHelperReflection.executeMethod(JMS_DESTINATION_METHOD_NAME, paramaters);
+        Object[] paramaters = new Object[] { getProviderConnection().getJNDIInitialContext(), getDestination() };
+        Object jmsJMSDestinationRuntimeMBeanObject = jmsHelperReflection.executeMethod(paramaters);
 
         // Fetch Message count.
-        Reflect jmsJMSDestinationRuntimeMBeanObjectReflection = new Reflect(jmsJMSDestinationRuntimeMBeanObject);
-        long messageCurrentCount = (long) jmsJMSDestinationRuntimeMBeanObjectReflection.executeMethod(JMS_MESSAGE_CURRENT_COUNT_METHOD_NAME);
+        Reflect jmsJMSDestinationRuntimeMBeanObjectReflection = new Reflect(jmsJMSDestinationRuntimeMBeanObject, JMS_MESSAGE_CURRENT_COUNT_METHOD_NAME);
+        long messageCurrentCount = (long) jmsJMSDestinationRuntimeMBeanObjectReflection.executeMethod();
 
         setPending(messageCurrentCount);
 
-        return super.getPending();
+        return messageCurrentCount;
     }
 }

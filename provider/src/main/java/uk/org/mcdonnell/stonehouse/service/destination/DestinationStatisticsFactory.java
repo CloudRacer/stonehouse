@@ -10,12 +10,15 @@ import javax.naming.NamingException;
 
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatistics;
 
 public abstract class DestinationStatisticsFactory extends DestinationStatisticsImpl {
 
     private ProviderConnection providerConnection = null;
     private DestinationType destinationType;
     private String destinationName;
+
+    private WebLogicDestinationStatistics webLogicDestinationStatistics;
 
     private DestinationStatisticsFactory() {
         super(0);
@@ -37,11 +40,12 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
         this.providerConnection = providerConnection;
     }
 
-    private void fetchStatistics() throws NamingException, JMSException {
+    private void fetchStatistics() throws NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         if (getProviderConnection().getJNDIInitialContext().getEnvironment().get("java.naming.factory.initial").toString().toLowerCase().startsWith("weblogic")) {
-            System.out.println("JMS Message Provider vendor identified as WebLogic.");
-            // TODO: get statistics by reflection and use the WebLogic native helper method instead of the default routine.
-            setPending(getTotalNumberOfPendingMessages());
+            // Convert to a "trace" entry in a log.
+            // System.out.println("JMS Message Provider vendor identified as WebLogic.");
+
+            setPending(getWebLogicDestinationStatistics().getPending());
         } else {
             setPending(getTotalNumberOfPendingMessages());
         }
@@ -94,5 +98,17 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
 
         // TODO Auto-generated method stub
         return super.getPending();
+    }
+
+    private WebLogicDestinationStatistics getWebLogicDestinationStatistics() throws NamingException, JMSException {
+        if (webLogicDestinationStatistics == null) {
+            webLogicDestinationStatistics = new WebLogicDestinationStatistics(getProviderConnection(), getDestinationType(), getDestinationName());
+        }
+
+        return webLogicDestinationStatistics;
+    }
+
+    private void setWebLogicDestinationStatistics(WebLogicDestinationStatistics webLogicDestinationStatistics) {
+        this.webLogicDestinationStatistics = webLogicDestinationStatistics;
     }
 }

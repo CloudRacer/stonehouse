@@ -1,6 +1,7 @@
 package uk.org.mcdonnell.stonehouse.service.destination;
 
 import javax.jms.JMSException;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
@@ -36,5 +37,12 @@ public class Destination extends DestinationStatisticsFactory {
 
     private void setDestinationType(DestinationType destinationType) {
         this.destinationType = destinationType;
+    }
+
+    public javax.jms.Destination getDestination() throws NamingException {
+        InitialContext initialContext = getProviderConnection().getJNDIInitialContext();
+        javax.jms.Destination destination = (javax.jms.Destination) initialContext.lookup(String.format("queue/%s", getDestinationName()));
+
+        return destination;
     }
 }
