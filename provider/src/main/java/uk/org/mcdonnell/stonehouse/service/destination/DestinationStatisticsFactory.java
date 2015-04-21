@@ -107,8 +107,4 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
 
         return webLogicDestinationStatistics;
     }
-
-    private void setWebLogicDestinationStatistics(WebLogicDestinationStatistics webLogicDestinationStatistics) {
-        this.webLogicDestinationStatistics = webLogicDestinationStatistics;
-    }
 }
