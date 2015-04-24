@@ -14,12 +14,13 @@ import org.junit.Test;
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.service.destination.Destination;
+import uk.org.mcdonnell.stonehouse.service.destination.DestinationStatisticsFactoryException;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
 
 public class DestinationTest {
 
     @Test
-    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryException {
         final String TEST_QUEUE_NAME = "Conv10AMSendQueue";
 
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();

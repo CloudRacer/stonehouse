@@ -12,21 +12,23 @@ import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
 import uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatistics;
 
-public abstract class DestinationStatisticsFactory extends DestinationStatisticsImpl {
+public abstract class DestinationStatisticsFactory implements DestinationStatistics {
+
+    private static enum VENDORS {
+        WEBLOGIC,
+        UNSUPPORTED
+    };
 
     private ProviderConnection providerConnection = null;
     private DestinationType destinationType;
     private String destinationName;
 
-    private WebLogicDestinationStatistics webLogicDestinationStatistics;
+    private DestinationStatistics vendorDestinationStatistics;
 
-    private DestinationStatisticsFactory() {
-        super(0);
-    }
+    @SuppressWarnings("unused")
+    private DestinationStatisticsFactory() {}
 
     public DestinationStatisticsFactory(ProviderConnection providerConnection, DestinationType destinationType, String destinationName) throws NamingException, JMSException {
-        super(0);
-
         setProviderConnection(providerConnection);
         setDestinationType(destinationType);
         setDestinationName(destinationName);
@@ -40,15 +42,49 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
         this.providerConnection = providerConnection;
     }
 
-    private void fetchStatistics() throws NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
-        if (getProviderConnection().getJNDIInitialContext().getEnvironment().get("java.naming.factory.initial").toString().toLowerCase().startsWith("weblogic")) {
+    @Override
+    public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryException {
+        Long pending;
+
+        if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
+            pending = getTotalNumberOfPendingMessages();
+        } else {
+            pending = getVendorDestinationStatistics().getPending();
+        }
+
+        return pending;
+    }
+
+    @Override
+    public long getCurrent() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryException {
+        Long current;
+
+        if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
             // Convert to a "trace" entry in a log.
             // System.out.println("JMS Message Provider vendor identified as WebLogic.");
 
-            setPending(getWebLogicDestinationStatistics().getPending());
+            current = (long) 0;
         } else {
-            setPending(getTotalNumberOfPendingMessages());
+            current = getVendorDestinationStatistics().getCurrent();
         }
+
+        return current;
+    }
+
+    @Override
+    public long getReceived() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryException {
+        Long received;
+
+        if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
+            // Convert to a "trace" entry in a log.
+            // System.out.println("JMS Message Provider vendor identified as WebLogic.");
+
+            received = (long) 0;
+        } else {
+            received = getVendorDestinationStatistics().getReceived();
+        }
+
+        return received;
     }
 
     private long getTotalNumberOfPendingMessages() throws NamingException, JMSException {
@@ -70,6 +106,24 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
         return messageCount;
     }
 
+    private VENDORS getSupportedVendor() throws NamingException {
+        VENDORS supportedVendor;
+
+        if (getVendor().startsWith("weblogic")) {
+            supportedVendor = VENDORS.WEBLOGIC;
+        } else {
+            supportedVendor = VENDORS.UNSUPPORTED;
+        }
+
+        // TODO: Convert to a "trace" entry in a log.
+        // System.out.println("JMS Message Provider vendor identified as WebLogic.");
+        return supportedVendor;
+    }
+
+    private String getVendor() throws NamingException {
+        return getProviderConnection().getJNDIInitialContext().getEnvironment().get("java.naming.factory.initial").toString().toLowerCase();
+    }
+
     private DestinationType getDestinationType() {
         return destinationType;
     }
@@ -86,25 +140,16 @@ public abstract class DestinationStatisticsFactory extends DestinationStatistics
         this.destinationName = queueName;
     }
 
-    @Override
-    public long getPending() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, NamingException {
-        try {
-            fetchStatistics();
-        } catch (NamingException e) {
-            e.printStackTrace();
-        } catch (JMSException e) {
-            e.printStackTrace();
+    private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryException {
+        if (vendorDestinationStatistics == null) {
+            switch (getSupportedVendor()) {
+            case WEBLOGIC:
+                vendorDestinationStatistics = new WebLogicDestinationStatistics(getProviderConnection(), getDestinationType(), getDestinationName());
+                break;
+            case UNSUPPORTED:
+                throw new DestinationStatisticsFactoryException(getVendor());
+            }
         }
-
-        // TODO Auto-generated method stub
-        return super.getPending();
-    }
-
-    private WebLogicDestinationStatistics getWebLogicDestinationStatistics() throws NamingException, JMSException {
-        if (webLogicDestinationStatistics == null) {
-            webLogicDestinationStatistics = new WebLogicDestinationStatistics(getProviderConnection(), getDestinationType(), getDestinationName());
-        }
-
-        return webLogicDestinationStatistics;
+        return vendorDestinationStatistics;
     }
 }

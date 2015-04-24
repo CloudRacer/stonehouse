@@ -15,12 +15,13 @@ import org.junit.Test;
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.service.destination.Destination;
+import uk.org.mcdonnell.stonehouse.service.destination.DestinationStatisticsFactoryException;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations;
 
 public class DestinationsTest {
 
     @Test
-    public void getAllQueues() throws NamingException, InvalidPropertiesFormatException, IOException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    public void getAllQueues() throws NamingException, InvalidPropertiesFormatException, IOException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryException {
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
         List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
@@ -30,7 +31,7 @@ public class DestinationsTest {
             Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {
                 Destination destination = it.next().getValue();
-                System.out.println(String.format("%s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getPending()));
+                System.out.println(String.format("%s - %s - %s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getPending(), destination.getCurrent(), destination.getReceived()));
             }
         }
     }
