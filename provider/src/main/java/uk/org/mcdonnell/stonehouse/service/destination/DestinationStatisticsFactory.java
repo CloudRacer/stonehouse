@@ -10,7 +10,7 @@ import javax.naming.NamingException;
 
 import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
-import uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatistics;
+import uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatisticsPlugin;
 
 public abstract class DestinationStatisticsFactory implements DestinationStatistics {
 
@@ -144,7 +144,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         if (vendorDestinationStatistics == null) {
             switch (getSupportedVendor()) {
             case WEBLOGIC:
-                vendorDestinationStatistics = new WebLogicDestinationStatistics(getProviderConnection(), getDestinationType(), getDestinationName());
+                vendorDestinationStatistics = new WebLogicDestinationStatisticsPlugin(getProviderConnection(), getDestinationType(), getDestinationName());
                 break;
             case UNSUPPORTED:
                 throw new DestinationStatisticsFactoryException(getVendor());
