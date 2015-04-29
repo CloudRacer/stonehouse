@@ -1,4 +1,4 @@
-package uk.org.mcdonnell.stonehouse.service.connection;
+package uk.org.mcdonnell.stonehouse.api.connection;
 
 import java.util.Hashtable;
 

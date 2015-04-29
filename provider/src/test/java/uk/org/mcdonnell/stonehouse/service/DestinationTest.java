@@ -11,16 +11,16 @@ import javax.naming.NamingException;
 
 import org.junit.Test;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
-import uk.org.mcdonnell.stonehouse.service.destination.Destination;
-import uk.org.mcdonnell.stonehouse.service.destination.DestinationStatisticsFactoryException;
-import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.destination.Destination;
+import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatisticsFactoryUnsupportedException;
 
 public class DestinationTest {
 
     @Test
-    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryException {
+    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         final String TEST_QUEUE_NAME = "Conv10AMSendQueue";
 
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();

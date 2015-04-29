@@ -6,10 +6,10 @@ import javax.jms.JMSException;
 import javax.naming.NamingException;
 
 import uk.org.mcdonnell.common.generic.Reflect;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.destination.Destination;
-import uk.org.mcdonnell.stonehouse.service.destination.DestinationStatistics;
-import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.destination.Destination;
+import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatistics;
 
 public class WebLogicDestinationStatisticsPlugin extends Destination implements DestinationStatistics {
 
@@ -29,7 +29,7 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
 
         // Fetch Message count.
         Reflect methodReflection = new Reflect(getWebLogicDestination(), messagePendingCountMethodName);
-        long messagePendingCount = (long) methodReflection.executeMethod();
+        long messagePendingCount = (Long) methodReflection.executeMethod();
 
         return messagePendingCount;
     }
@@ -40,7 +40,7 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
 
         // Fetch Message count.
         Reflect methodReflection = new Reflect(getWebLogicDestination(), messageCurrentCountMethodName);
-        long messageCurrentCount = (long) methodReflection.executeMethod();
+        long messageCurrentCount = (Long) methodReflection.executeMethod();
 
         return messageCurrentCount;
     }
@@ -51,7 +51,7 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
 
         // Fetch Message count.
         Reflect methodReflection = new Reflect(getWebLogicDestination(), messageReceivedCountMethodName);
-        long messageReceivedCount = (long) methodReflection.executeMethod();
+        long messageReceivedCount = (Long) methodReflection.executeMethod();
 
         return messageReceivedCount;
     }

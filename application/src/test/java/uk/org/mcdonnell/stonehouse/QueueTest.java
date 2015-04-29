@@ -8,8 +8,8 @@ import javax.naming.NamingException;
 
 import org.junit.Test;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 
 public class QueueTest {
 

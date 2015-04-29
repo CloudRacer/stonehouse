@@ -1,4 +1,4 @@
-package uk.org.mcdonnell.stonehouse.service.destination;
+package uk.org.mcdonnell.stonehouse.api.destination;
 
 import java.util.Hashtable;
 
@@ -7,7 +7,7 @@ import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
 
 public class Destinations {
 
@@ -28,7 +28,7 @@ public class Destinations {
         setProviderConnection(providerConnection);
     }
 
-    public Hashtable<String, Destination> getAllDestinations() throws NamingException, JMSException {
+    public Hashtable<String, Destination> getAllDestinations() throws Exception {
         if (getDestinationList() == null) {
             setDestinationList(new Hashtable<String, Destination>());
 

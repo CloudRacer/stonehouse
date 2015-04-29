@@ -1,4 +1,4 @@
-package uk.org.mcdonnell.stonehouse.service.destination;
+package uk.org.mcdonnell.stonehouse.api.destination.statistics;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
@@ -8,9 +8,8 @@ import javax.jms.Message;
 import javax.jms.QueueBrowser;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
-import uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatisticsPlugin;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 
 public abstract class DestinationStatisticsFactory implements DestinationStatistics {
 
@@ -43,7 +42,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     }
 
     @Override
-    public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryException {
+    public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryUnsupportedException {
         Long pending;
 
         if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
@@ -56,7 +55,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     }
 
     @Override
-    public long getCurrent() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryException {
+    public long getCurrent() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         Long current;
 
         if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
@@ -72,7 +71,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     }
 
     @Override
-    public long getReceived() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryException {
+    public long getReceived() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         Long received;
 
         if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
@@ -140,14 +139,15 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         this.destinationName = queueName;
     }
 
-    private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryException {
+    private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryUnsupportedException {
         if (vendorDestinationStatistics == null) {
             switch (getSupportedVendor()) {
             case WEBLOGIC:
-                vendorDestinationStatistics = new WebLogicDestinationStatisticsPlugin(getProviderConnection(), getDestinationType(), getDestinationName());
+                // TODO: instantiate using the reflection functionality in the Reflect class of the utility project.
+                // vendorDestinationStatistics = new WebLogicDestinationStatisticsPlugin(getProviderConnection(), getDestinationType(), getDestinationName());
                 break;
             case UNSUPPORTED:
-                throw new DestinationStatisticsFactoryException(getVendor());
+                throw new DestinationStatisticsFactoryUnsupportedException(getVendor());
             }
         }
         return vendorDestinationStatistics;

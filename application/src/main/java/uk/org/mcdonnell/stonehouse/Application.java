@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 
 public class Application
 {

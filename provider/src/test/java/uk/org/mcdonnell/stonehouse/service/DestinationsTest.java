@@ -1,27 +1,20 @@
 package uk.org.mcdonnell.stonehouse.service;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
-
 import org.junit.Test;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
-import uk.org.mcdonnell.stonehouse.service.destination.Destination;
-import uk.org.mcdonnell.stonehouse.service.destination.DestinationStatisticsFactoryException;
-import uk.org.mcdonnell.stonehouse.service.destination.Destinations;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.destination.Destination;
+import uk.org.mcdonnell.stonehouse.api.destination.Destinations;
 
 public class DestinationsTest {
 
     @Test
-    public void getAllQueues() throws NamingException, InvalidPropertiesFormatException, IOException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryException {
+    public void getAllQueues() throws Exception {
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
         List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();

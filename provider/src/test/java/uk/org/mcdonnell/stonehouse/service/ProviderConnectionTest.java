@@ -12,8 +12,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import uk.org.mcdonnell.common.generic.PropertyManipulation;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 
 public class ProviderConnectionTest {
 

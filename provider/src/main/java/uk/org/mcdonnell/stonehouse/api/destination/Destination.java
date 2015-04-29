@@ -1,11 +1,12 @@
-package uk.org.mcdonnell.stonehouse.service.destination;
+package uk.org.mcdonnell.stonehouse.api.destination;
 
 import javax.jms.JMSException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.stonehouse.service.connection.ProviderConnection;
-import uk.org.mcdonnell.stonehouse.service.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatisticsFactory;
 
 public class Destination extends DestinationStatisticsFactory {
 
