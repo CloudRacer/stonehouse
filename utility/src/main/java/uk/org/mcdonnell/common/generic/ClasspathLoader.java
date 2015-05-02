@@ -61,7 +61,7 @@ public class ClasspathLoader
             List<File> fileList = FileManipulation.getFileList(pluginFolder, fileFilter);
 
             for (File file : fileList) {
-                System.out.println(String.format("Adding the jar \"%s\" to the JVM classpath...", file.getAbsolutePath()));
+                System.out.println(String.format("Adding the JAR \"%s\" to the JVM classpath...", file.getAbsolutePath()));
 
                 SystemClasspath.addFile(file.getAbsolutePath());
             }

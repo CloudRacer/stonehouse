@@ -20,7 +20,7 @@ import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatist
 public class DestinationTest {
 
     @Test
-    public void getDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
+    public void getSingleDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         final String TEST_QUEUE_NAME = "Conv10AMSendQueue";
 
         ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();

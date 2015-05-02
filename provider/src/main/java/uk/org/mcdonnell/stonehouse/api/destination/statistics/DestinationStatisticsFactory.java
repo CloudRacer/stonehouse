@@ -8,6 +8,7 @@ import javax.jms.Message;
 import javax.jms.QueueBrowser;
 import javax.naming.NamingException;
 
+import uk.org.mcdonnell.common.generic.Reflect;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 
@@ -139,17 +140,18 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         this.destinationName = queueName;
     }
 
-    private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryUnsupportedException {
+    private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryUnsupportedException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (vendorDestinationStatistics == null) {
-            switch (getSupportedVendor()) {
-            case WEBLOGIC:
-                // TODO: instantiate using the reflection functionality in the Reflect class of the utility project.
-                // vendorDestinationStatistics = new WebLogicDestinationStatisticsPlugin(getProviderConnection(), getDestinationType(), getDestinationName());
-                break;
-            case UNSUPPORTED:
-                throw new DestinationStatisticsFactoryUnsupportedException(getVendor());
-            }
+            // TODO: instantiate using the reflection functionality in the Reflect class of the utility project.
+            // vendorDestinationStatistics = new WebLogicDestinationStatisticsPlugin(getProviderConnection(), getDestinationType(), getDestinationName());
+            final String classQualifiedNamePropertyName = "class.qualified.name";
+            final String classQualifiedName = getProviderConnection().getJNDIInitialContext().getEnvironment().get(classQualifiedNamePropertyName).toString();
+
+            Reflect reflect = new Reflect(classQualifiedName, new Object[] { getProviderConnection(), getDestinationType(), getDestinationName() });
+
+            vendorDestinationStatistics = (DestinationStatistics) reflect.getObject();
         }
+
         return vendorDestinationStatistics;
     }
 }
