@@ -14,7 +14,6 @@ public class Reflect {
     private Method method;
     private Object object;
 
-    @SuppressWarnings("unused")
     public Reflect(String className, Object[] constructorArguments) {
         setClassName(className);
         setConstructorArguments(constructorArguments);
