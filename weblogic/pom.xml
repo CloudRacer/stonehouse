@@ -10,9 +10,8 @@
 	</parent>
 	<groupId>uk.org.mcdonnell.stonehouse</groupId>
 	<artifactId>weblogic</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<name>WebLogic</name>
-	<url>http://maven.apache.org</url>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>

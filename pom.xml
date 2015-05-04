@@ -3,9 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.org.mcdonnell</groupId>
 	<artifactId>stonehouse</artifactId>
-	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<url>http://maven.apache.org</url>
+	<name>Stonehouse</name>
+	<packaging>pom</packaging>
+
+	<url>https://github.com/CloudRacer/stonehouse</url>
 
 	<properties>
 		<version>${project.version}</version>
