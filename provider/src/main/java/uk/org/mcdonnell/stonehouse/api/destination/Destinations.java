@@ -19,12 +19,7 @@ public class Destinations {
 
     private Hashtable<String, Destination> destinationList = null;
 
-    @SuppressWarnings("unused")
-    private Destinations() {
-
-    }
-
-    public Destinations(ProviderConnection providerConnection) {
+    public Destinations(final ProviderConnection providerConnection) {
         setProviderConnection(providerConnection);
     }
 
@@ -36,7 +31,7 @@ public class Destinations {
                 // TODO: Add this to the configuration file - one for each provider.
                 addDestinations(DestinationType.QUEUE, getProviderConnection().getJNDIInitialContext().list("queue"));
                 addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list("topic"));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Rest the the Queue List.
                 setDestinationList(null);
 
@@ -47,7 +42,7 @@ public class Destinations {
         return getDestinationList();
     }
 
-    private void addDestinations(DestinationType destinationType, NamingEnumeration<NameClassPair> jndiList) throws NamingException, JMSException {
+    private void addDestinations(final DestinationType destinationType, final NamingEnumeration<NameClassPair> jndiList) throws NamingException, JMSException {
         while (jndiList.hasMore()) {
             final String jndiName = jndiList.next().getName();
 
@@ -61,7 +56,7 @@ public class Destinations {
         return providerConnection;
     }
 
-    private void setProviderConnection(ProviderConnection providerConnection) {
+    private void setProviderConnection(final ProviderConnection providerConnection) {
         this.providerConnection = providerConnection;
     }
 
@@ -69,7 +64,7 @@ public class Destinations {
         return destinationList;
     }
 
-    private void setDestinationList(Hashtable<String, Destination> destinationList) {
+    private void setDestinationList(final Hashtable<String, Destination> destinationList) {
         this.destinationList = destinationList;
     }
 }

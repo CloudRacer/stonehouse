@@ -17,7 +17,7 @@ public class Destination extends DestinationStatisticsFactory {
         super(null, null, null);
     }
 
-    public Destination(ProviderConnection providerConnection, DestinationType destinationType, String queueName) throws NamingException, JMSException {
+    public Destination(final ProviderConnection providerConnection, final DestinationType destinationType, final String queueName) throws NamingException, JMSException {
         super(providerConnection, destinationType, queueName);
 
         this.setDestinationName(queueName);
@@ -28,7 +28,7 @@ public class Destination extends DestinationStatisticsFactory {
         return queueName;
     }
 
-    private void setDestinationName(String queueName) {
+    private void setDestinationName(final String queueName) {
         this.queueName = queueName;
     }
 
@@ -36,13 +36,13 @@ public class Destination extends DestinationStatisticsFactory {
         return destinationType;
     }
 
-    private void setDestinationType(DestinationType destinationType) {
+    private void setDestinationType(final DestinationType destinationType) {
         this.destinationType = destinationType;
     }
 
     public javax.jms.Destination getDestination() throws NamingException {
-        InitialContext initialContext = getProviderConnection().getJNDIInitialContext();
-        javax.jms.Destination destination = (javax.jms.Destination) initialContext.lookup(String.format("queue/%s", getDestinationName()));
+        final InitialContext initialContext = getProviderConnection().getJNDIInitialContext();
+        final javax.jms.Destination destination = (javax.jms.Destination) initialContext.lookup(String.format("queue/%s", getDestinationName()));
 
         return destination;
     }

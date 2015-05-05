@@ -22,7 +22,7 @@ public class ProviderConnectionTest {
     public void testProviderJNDIInitialContextEnvironmentIsNotEmpty() {
         Hashtable<String, String> emptyJNDIInitialContextEnvironment;
         try {
-            ProviderConnection providerConnection = new ProviderConnection();
+            final ProviderConnection providerConnection = new ProviderConnection();
 
             emptyJNDIInitialContextEnvironment = (Hashtable<String, String>) PrivateAccessor
                     .invoke(providerConnection,
@@ -31,14 +31,14 @@ public class ProviderConnectionTest {
 
             assertTrue(emptyJNDIInitialContextEnvironment != null
                     && emptyJNDIInitialContextEnvironment.isEmpty());
-        } catch (Throwable e) {
+        } catch (final Throwable e) {
             Assert.fail("Error occurred: " + e.getMessage());
         }
     }
 
     @Test
     public void testGetAllProviders() throws Throwable {
-        ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
         PropertyManipulation propertyManipulation;
         providerConnectionFactory.getAllProviders();
 

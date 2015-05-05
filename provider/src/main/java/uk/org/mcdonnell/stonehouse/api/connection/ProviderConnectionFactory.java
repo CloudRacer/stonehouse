@@ -39,7 +39,7 @@ public class ProviderConnectionFactory {
                 if (providersJNDIInitialContextEnvironment.isEmpty()) {
                     providersJNDIInitialContextEnvironment = null;
                 } else {
-                    ProviderConnection providerConnection = new ProviderConnection();
+                    final ProviderConnection providerConnection = new ProviderConnection();
 
                     providerConnection
                             .setJNDIInitialContextEnvironment((Hashtable<String, String>) providersJNDIInitialContextEnvironment

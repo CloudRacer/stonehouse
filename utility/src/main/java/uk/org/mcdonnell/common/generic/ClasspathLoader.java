@@ -58,9 +58,9 @@ public class ClasspathLoader
          * @throws IOException
          */
         public void addFolder(final File pluginFolder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
-            List<File> fileList = FileManipulation.getFileList(pluginFolder, fileFilter);
+            final List<File> fileList = FileManipulation.getFileList(pluginFolder, fileFilter);
 
-            for (File file : fileList) {
+            for (final File file : fileList) {
                 System.out.println(String.format("Adding the JAR \"%s\" to the JVM classpath...", file.getAbsolutePath()));
 
                 SystemClasspath.addFile(file.getAbsolutePath());
@@ -80,17 +80,17 @@ public class ClasspathLoader
          * @throws NoSuchMethodException
          * @throws IOException
          */
-        public static void addFile(String filename) throws NoSuchMethodException, SecurityException,
+        public static void addFile(final String filename) throws NoSuchMethodException, SecurityException,
                 IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException,
                 IOException
         {
-            File f = new File(filename);
+            final File f = new File(filename);
             addURL(f.toURI().toURL());
         }
 
         public String getClasspath() {
-            ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
-            URL[] urls = ((URLClassLoader) sysClassLoader).getURLs();
+            final ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
+            final URL[] urls = ((URLClassLoader) sysClassLoader).getURLs();
             String classpath = null;
 
             for (int i = 0; i < urls.length; i++)
@@ -117,13 +117,13 @@ public class ClasspathLoader
          * @throws IllegalArgumentException
          * @throws IllegalAccessException
          */
-        private static void addURL(URL url) throws IOException, NoSuchMethodException, SecurityException,
+        private static void addURL(final URL url) throws IOException, NoSuchMethodException, SecurityException,
                 IllegalAccessException, IllegalArgumentException, InvocationTargetException
         {
-            URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-            Class<?> sysclass = URLClassLoader.class;
+            final URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+            final Class<?> sysclass = URLClassLoader.class;
 
-            Method method = sysclass.getDeclaredMethod("addURL", parameters);
+            final Method method = sysclass.getDeclaredMethod("addURL", parameters);
             method.setAccessible(true);
             method.invoke(sysloader, new Object[]
             {

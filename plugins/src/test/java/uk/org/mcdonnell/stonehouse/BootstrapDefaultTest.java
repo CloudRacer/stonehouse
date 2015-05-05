@@ -16,7 +16,7 @@ public class BootstrapDefaultTest {
 
     @Test
     public void loadDefaultBootstrap() {
-        File pluginFolder = new File("./plugins");
+        final File pluginFolder = new File("./plugins");
         String classpath;
 
         try {
@@ -24,13 +24,13 @@ public class BootstrapDefaultTest {
 
             classpath = ClasspathLoader.getInstance().getClasspath();
 
-            List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
-            for (File file : files) {
+            final List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
+            for (final File file : files) {
                 assertFalse(classpath.indexOf(file.getName()) == 0);
             }
 
             assertTrue(true);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Assert.fail(e.getMessage());
         }
     }

@@ -11,11 +11,11 @@ public class Application
 {
 
     public List<ProviderConnection> getAllQueues() throws InvalidPropertiesFormatException, IOException {
-        ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
         return providerConnectionFactory.getAllProviders();
     }
 
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {}
 }

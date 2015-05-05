@@ -15,15 +15,15 @@ public class DestinationsTest {
 
     @Test
     public void getAllQueues() throws Exception {
-        ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
-        List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
-        for (ProviderConnection providerConnection : providerConnections) {
-            Destinations destinations = new Destinations(providerConnection);
+        final List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
+        for (final ProviderConnection providerConnection : providerConnections) {
+            final Destinations destinations = new Destinations(providerConnection);
 
-            Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
+            final Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {
-                Destination destination = it.next().getValue();
+                final Destination destination = it.next().getValue();
                 System.out.println(String.format("%s - %s - %s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getPending(), destination.getCurrent(), destination.getReceived()));
             }
         }

@@ -13,7 +13,7 @@ public class ClasspathLoaderTest {
 
     @Test
     public void LoadClasspath() {
-        File pluginFolder = new File("../plugins/plugins");
+        final File pluginFolder = new File("../plugins/plugins");
         String classpath;
 
         try {
@@ -21,13 +21,13 @@ public class ClasspathLoaderTest {
 
             classpath = ClasspathLoader.getInstance().getClasspath();
 
-            List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
-            for (File file : files) {
+            final List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
+            for (final File file : files) {
                 assertFalse(classpath.indexOf(file.getName()) == 0);
             }
 
             assertTrue(true);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Assert.fail(e.getMessage());
         }
     }

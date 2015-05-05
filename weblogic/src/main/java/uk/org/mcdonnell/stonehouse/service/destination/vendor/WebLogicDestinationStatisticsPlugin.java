@@ -19,7 +19,7 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
         super(null, null, null);
     };
 
-    public WebLogicDestinationStatisticsPlugin(ProviderConnection providerConnection, DestinationType destinationType, String queueName) throws NamingException, JMSException {
+    public WebLogicDestinationStatisticsPlugin(final ProviderConnection providerConnection, final DestinationType destinationType, final String queueName) throws NamingException, JMSException {
         super(providerConnection, destinationType, queueName);
     }
 
@@ -28,8 +28,8 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
         final String messagePendingCountMethodName = "getMessagesPendingCount";
 
         // Fetch Message count.
-        Reflect methodReflection = new Reflect(getWebLogicDestination(), messagePendingCountMethodName);
-        long messagePendingCount = (Long) methodReflection.executeMethod();
+        final Reflect methodReflection = new Reflect(getWebLogicDestination(), messagePendingCountMethodName);
+        final long messagePendingCount = (Long) methodReflection.executeMethod();
 
         return messagePendingCount;
     }
@@ -39,8 +39,8 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
         final String messageCurrentCountMethodName = "getMessagesCurrentCount";
 
         // Fetch Message count.
-        Reflect methodReflection = new Reflect(getWebLogicDestination(), messageCurrentCountMethodName);
-        long messageCurrentCount = (Long) methodReflection.executeMethod();
+        final Reflect methodReflection = new Reflect(getWebLogicDestination(), messageCurrentCountMethodName);
+        final long messageCurrentCount = (Long) methodReflection.executeMethod();
 
         return messageCurrentCount;
     }
@@ -50,8 +50,8 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
         final String messageReceivedCountMethodName = "getMessagesReceivedCount";
 
         // Fetch Message count.
-        Reflect methodReflection = new Reflect(getWebLogicDestination(), messageReceivedCountMethodName);
-        long messageReceivedCount = (Long) methodReflection.executeMethod();
+        final Reflect methodReflection = new Reflect(getWebLogicDestination(), messageReceivedCountMethodName);
+        final long messageReceivedCount = (Long) methodReflection.executeMethod();
 
         return messageReceivedCount;
     }
@@ -62,15 +62,15 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
             final String jmsDestinationMethodName = "getJMSDestinationRuntimeMBean";
 
             // Instantiate JMS helper object.
-            Class<?> contextClass = Class.forName("javax.naming.Context");
+            final Class<?> contextClass = Class.forName("javax.naming.Context");
             // Class<?> sessionClass = Class.forName("javax.jms.Session");
-            Class<?> jmsDestinationClass = Class.forName("javax.jms.Destination");
+            final Class<?> jmsDestinationClass = Class.forName("javax.jms.Destination");
             // Class<?>[] parameters = { contextClass, String.class, String.class };
-            Class<?>[] parameters = { contextClass, jmsDestinationClass };
-            Reflect jmsHelperReflection = new Reflect(jmsHelperClassName, jmsDestinationMethodName, parameters);
+            final Class<?>[] parameters = { contextClass, jmsDestinationClass };
+            final Reflect jmsHelperReflection = new Reflect(jmsHelperClassName, jmsDestinationMethodName, parameters);
 
             // Instantiate Destination object.
-            Object[] paramaters = new Object[] { getProviderConnection().getJNDIInitialContext(), getDestination() };
+            final Object[] paramaters = new Object[] { getProviderConnection().getJNDIInitialContext(), getDestination() };
             jmsJMSDestinationRuntimeMBeanObject = jmsHelperReflection.executeMethod(paramaters);
         }
 

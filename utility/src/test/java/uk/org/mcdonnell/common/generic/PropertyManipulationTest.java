@@ -22,7 +22,7 @@ public class PropertyManipulationTest {
             assertTrue(new File(getPropertyManipulation().getFilename()).exists());
             assertTrue(getPropertyManipulation().getFile().exists());
             assertTrue(getPropertyManipulation().getFile().getAbsolutePath() == getPropertyManipulation().getFilename());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
 
             Assert.fail("Error occurred: " + e.getMessage());

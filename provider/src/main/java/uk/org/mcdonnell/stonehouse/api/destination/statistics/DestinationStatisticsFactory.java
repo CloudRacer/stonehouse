@@ -25,10 +25,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
 
     private DestinationStatistics vendorDestinationStatistics;
 
-    @SuppressWarnings("unused")
-    private DestinationStatisticsFactory() {}
-
-    public DestinationStatisticsFactory(ProviderConnection providerConnection, DestinationType destinationType, String destinationName) throws NamingException, JMSException {
+    public DestinationStatisticsFactory(final ProviderConnection providerConnection, final DestinationType destinationType, final String destinationName) throws NamingException, JMSException {
         setProviderConnection(providerConnection);
         setDestinationType(destinationType);
         setDestinationName(destinationName);
@@ -38,7 +35,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         return providerConnection;
     }
 
-    private void setProviderConnection(ProviderConnection providerConnection) {
+    private void setProviderConnection(final ProviderConnection providerConnection) {
         this.providerConnection = providerConnection;
     }
 
@@ -93,10 +90,10 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         // TODO: count the messages in a Topic also.
         if (getDestinationType() == DestinationType.QUEUE) {
             // TODO: Again, put the JNDI queue root into configuration.
-            QueueBrowser queueBrowser = getProviderConnection().getQueueBrowser(getDestinationName());
+            final QueueBrowser queueBrowser = getProviderConnection().getQueueBrowser(getDestinationName());
 
             @SuppressWarnings("unchecked")
-            Enumeration<Message> enumeration = queueBrowser.getEnumeration();
+            final Enumeration<Message> enumeration = queueBrowser.getEnumeration();
             while (enumeration.hasMoreElements()) {
                 enumeration.nextElement();
                 messageCount++;
@@ -128,7 +125,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         return destinationType;
     }
 
-    private void setDestinationType(DestinationType destinationType) {
+    private void setDestinationType(final DestinationType destinationType) {
         this.destinationType = destinationType;
     }
 
@@ -136,8 +133,8 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         return destinationName;
     }
 
-    private void setDestinationName(String queueName) {
-        this.destinationName = queueName;
+    private void setDestinationName(final String queueName) {
+        destinationName = queueName;
     }
 
     private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryUnsupportedException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -147,7 +144,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
             final String classQualifiedNamePropertyName = "class.qualified.name";
             final String classQualifiedName = getProviderConnection().getJNDIInitialContext().getEnvironment().get(classQualifiedNamePropertyName).toString();
 
-            Reflect reflect = new Reflect(classQualifiedName, new Object[] { getProviderConnection(), getDestinationType(), getDestinationName() });
+            final Reflect reflect = new Reflect(classQualifiedName, new Object[] { getProviderConnection(), getDestinationType(), getDestinationName() });
 
             vendorDestinationStatistics = (DestinationStatistics) reflect.getObject();
         }

@@ -20,7 +20,7 @@ public class ProviderConnection {
     public ProviderConnection() {}
 
     public void setJNDIInitialContextEnvironment(
-            Hashtable<String, String> jndiInitialContextEnvironment) {
+            final Hashtable<String, String> jndiInitialContextEnvironment) {
         this.jndiInitialContextEnvironment = jndiInitialContextEnvironment;
     }
 
@@ -41,27 +41,27 @@ public class ProviderConnection {
         return jndiInitialContext;
     }
 
-    public QueueBrowser getQueueBrowser(String queueName) throws NamingException, JMSException {
-        QueueSession queueSession = getQueueSession();
-        InitialContext initialContext = getJNDIInitialContext();
-        Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", queueName));
-        QueueBrowser queueBrowser = queueSession.createBrowser(queue);
+    public QueueBrowser getQueueBrowser(final String queueName) throws NamingException, JMSException {
+        final QueueSession queueSession = getQueueSession();
+        final InitialContext initialContext = getJNDIInitialContext();
+        final Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", queueName));
+        final QueueBrowser queueBrowser = queueSession.createBrowser(queue);
         return queueBrowser;
     }
 
     private QueueSession getQueueSession() throws NamingException, JMSException {
-        QueueConnection queueConnection = getQueueConnection();
-        QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+        final QueueConnection queueConnection = getQueueConnection();
+        final QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
         return queueSession;
     }
 
     private QueueConnection getQueueConnection() throws NamingException, JMSException {
-        InitialContext initialContext = getJNDIInitialContext();
-        ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+        final InitialContext initialContext = getJNDIInitialContext();
+        final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
         connectionFactory.createConnection();
-        QueueConnectionFactory queueConnectionFactory =
+        final QueueConnectionFactory queueConnectionFactory =
                 (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
-        QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
+        final QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
         return queueConnection;
     }
 }

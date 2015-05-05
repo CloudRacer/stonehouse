@@ -19,35 +19,30 @@ public class PropertyManipulation extends Properties
 
     private String filename;
 
-    @SuppressWarnings("unused")
-    private PropertyManipulation()
-    {
-    }
-
-    public PropertyManipulation(String filename) throws InvalidPropertiesFormatException, IOException
+    public PropertyManipulation(final String filename) throws InvalidPropertiesFormatException, IOException
     {
         setFilename(filename);
 
         if (getFile().exists())
         {
-            FileInputStream fis = new FileInputStream(getFile());
+            final FileInputStream fis = new FileInputStream(getFile());
             load(fis);
         }
     }
 
     public String getFilename() throws FileNotFoundException, IOException
     {
-        File file = new File(filename);
+        final File file = new File(filename);
 
         if (!file.isAbsolute())
         {
-            String absoluteFilename =
+            final String absoluteFilename =
                     String.format("%s%s%s", getFolder().getCanonicalPath(), File.separatorChar, filename);
 
-            File absoluteFile = new File(absoluteFilename);
+            final File absoluteFile = new File(absoluteFilename);
             if (!absoluteFile.exists())
             {
-                File parentFolder = new File(absoluteFile.getParentFile().getCanonicalPath());
+                final File parentFolder = new File(absoluteFile.getParentFile().getCanonicalPath());
                 if (!parentFolder.isDirectory())
                 {
                     parentFolder.mkdirs();
@@ -69,7 +64,7 @@ public class PropertyManipulation extends Properties
         return filename;
     }
 
-    private void setFilename(String filename)
+    private void setFilename(final String filename)
     {
         this.filename = filename;
     }
@@ -99,7 +94,7 @@ public class PropertyManipulation extends Properties
         return folder;
     }
 
-    private File getConfigurationFolder(File baseFolder) throws FileNotFoundException, IOException
+    private File getConfigurationFolder(final File baseFolder) throws FileNotFoundException, IOException
     {
         // The metadata folder is only present in a Runtime installation.
         final String METADATA_FOLDER_NAME = System.getProperty("com.bf.viaduct.metadata.location", "metadata");
@@ -128,7 +123,7 @@ public class PropertyManipulation extends Properties
         return folder;
     }
 
-    private void saveDefaultProperties(Properties properties, File file) throws FileNotFoundException, IOException
+    private void saveDefaultProperties(final Properties properties, final File file) throws FileNotFoundException, IOException
     {
         OutputStream outputStream = null;
         try
@@ -136,8 +131,7 @@ public class PropertyManipulation extends Properties
             outputStream = new FileOutputStream(file);
 
             properties.store(outputStream, String.format("Property defaults applied automatically on %s.", new Date()));
-        }
-        finally
+        } finally
         {
             if (outputStream != null)
             {
@@ -146,19 +140,19 @@ public class PropertyManipulation extends Properties
         }
     }
 
-    private String getDefaultPropertiesFilename(String filename) throws FileNotFoundException, IOException
+    private String getDefaultPropertiesFilename(final String filename) throws FileNotFoundException, IOException
     {
         return String.format("%s%s.default", "/", new File(filename).getName());
     }
 
-    private Properties getDefaultProperties(String filename) throws FileNotFoundException, IOException
+    private Properties getDefaultProperties(final String filename) throws FileNotFoundException, IOException
     {
         Properties defaultProperties = null;
 
         if (defaultProperties == null)
         {
             defaultProperties = new Properties();
-            InputStream inputStream =
+            final InputStream inputStream =
                     PropertyManipulation.class.getResourceAsStream(getDefaultPropertiesFilename(filename));
             defaultProperties.load(inputStream);
             inputStream.close();

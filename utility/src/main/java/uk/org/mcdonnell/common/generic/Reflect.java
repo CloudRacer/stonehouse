@@ -14,22 +14,22 @@ public class Reflect {
     private Method method;
     private Object object;
 
-    public Reflect(String className, Object[] constructorArguments) {
+    public Reflect(final String className, final Object[] constructorArguments) {
         setClassName(className);
         setConstructorArguments(constructorArguments);
     }
 
-    public Reflect(String className, String methodName, Class<?>[] methodArguments) {
+    public Reflect(final String className, final String methodName, final Class<?>[] methodArguments) {
         setClassName(className);
         setMethodName(methodName);
         setArguments(methodArguments);
     }
 
-    public Reflect(Object object, String methodName) {
+    public Reflect(final Object object, final String methodName) {
         this(object, methodName, null);
     }
 
-    public Reflect(Object object, String methodName, Class<?>[] arguments) {
+    public Reflect(final Object object, final String methodName, final Class<?>[] arguments) {
         setObject(object);
         setMethodName(methodName);
         setArguments(arguments);
@@ -39,12 +39,12 @@ public class Reflect {
         return executeMethod(null);
     }
 
-    public Object executeMethod(Object[] arguments) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    public Object executeMethod(final Object[] arguments) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         return getMethod().invoke(getObject(), arguments);
     }
 
-    private Method getMethodDeclaration(String methodName, Class<?>[] arguments) throws NoSuchMethodException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Method method = getClazz().getMethod(methodName, arguments);
+    private Method getMethodDeclaration(final String methodName, final Class<?>[] arguments) throws NoSuchMethodException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        final Method method = getClazz().getMethod(methodName, arguments);
 
         return method;
     }
@@ -53,7 +53,7 @@ public class Reflect {
         return className;
     }
 
-    private void setClassName(String className) {
+    private void setClassName(final String className) {
         this.className = className;
     }
 
@@ -78,7 +78,7 @@ public class Reflect {
         return method;
     }
 
-    private void setMethod(Method method) {
+    private void setMethod(final Method method) {
         this.method = method;
     }
 
@@ -86,15 +86,15 @@ public class Reflect {
         return methodArguments;
     }
 
-    private void setArguments(Class<?>[] arguments) {
-        this.methodArguments = arguments;
+    private void setArguments(final Class<?>[] arguments) {
+        methodArguments = arguments;
     }
 
     private String getMethodName() {
         return methodName;
     }
 
-    private void setMethodName(String methodName) {
+    private void setMethodName(final String methodName) {
         this.methodName = methodName;
     }
 
@@ -109,7 +109,7 @@ public class Reflect {
         return object;
     }
 
-    private void setObject(Object object) {
+    private void setObject(final Object object) {
         this.object = object;
     }
 
@@ -117,7 +117,7 @@ public class Reflect {
         return constructorArguments;
     }
 
-    private void setConstructorArguments(Object[] constructorArguments) {
+    private void setConstructorArguments(final Object[] constructorArguments) {
         this.constructorArguments = constructorArguments;
         setConstructorArgumentTypes(null);
     }
@@ -126,15 +126,15 @@ public class Reflect {
         if (getConstructorArguments() == null) {
             setConstructorArgumentTypes(null);
         } else {
-            this.constructorArgumentTypes = new Class[constructorArguments.length];
+            constructorArgumentTypes = new Class[constructorArguments.length];
             for (int i = 0; i < getConstructorArguments().length; i++) {
-                this.constructorArgumentTypes[i] = getConstructorArguments()[i].getClass();
+                constructorArgumentTypes[i] = getConstructorArguments()[i].getClass();
             }
         }
-        return this.constructorArgumentTypes;
+        return constructorArgumentTypes;
     }
 
-    private void setConstructorArgumentTypes(Class<?>[] constructorArgumentTypes) {
+    private void setConstructorArgumentTypes(final Class<?>[] constructorArgumentTypes) {
         this.constructorArgumentTypes = constructorArgumentTypes;
     }
 }

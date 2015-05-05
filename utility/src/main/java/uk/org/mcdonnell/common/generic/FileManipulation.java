@@ -6,8 +6,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Vector;
 
-import uk.org.mcdonnell.common.generic.Search;
-
 public class FileManipulation
 {
     private static URL installationFolder;
@@ -22,14 +20,14 @@ public class FileManipulation
      *            one expression needs to match a filename in order for it to be included.
      * @return
      */
-    public static List<File> getFileList(File directory, final String filter)
+    public static List<File> getFileList(final File directory, final String filter)
     {
-        FilenameFilter filenameFilter = new FilenameFilter()
+        final FilenameFilter filenameFilter = new FilenameFilter()
         {
             @Override
-            public boolean accept(File dir, String name)
+            public boolean accept(final File dir, final String name)
             {
-                String[] filters = filter.split(";");
+                final String[] filters = filter.split(";");
                 String filter = null;
                 boolean match = false;
 
@@ -46,7 +44,7 @@ public class FileManipulation
             }
         };
 
-        List<File> files = listFiles(directory, filenameFilter, true);
+        final List<File> files = listFiles(directory, filenameFilter, true);
 
         return files;
     }
@@ -63,13 +61,13 @@ public class FileManipulation
      *            if true, sub-folders will also be search.
      * @return
      */
-    private static List<File> listFiles(File directory, FilenameFilter filter, boolean recurse)
+    private static List<File> listFiles(final File directory, final FilenameFilter filter, final boolean recurse)
     {
-        Vector<File> files = new Vector<File>();
-        File[] entries = directory.listFiles();
+        final Vector<File> files = new Vector<File>();
+        final File[] entries = directory.listFiles();
         if (entries != null)
         {
-            for (File entry : entries)
+            for (final File entry : entries)
             {
                 if (filter == null || filter.accept(directory, entry.getName()))
                 {

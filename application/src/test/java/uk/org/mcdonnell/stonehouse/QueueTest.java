@@ -15,11 +15,11 @@ public class QueueTest {
 
     @Test
     public void testGetAllQueues() throws InvalidPropertiesFormatException, IOException, NamingException {
-        ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
-        List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
+        final List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
 
-        for (ProviderConnection providerConnection : providerConnections) {
+        for (final ProviderConnection providerConnection : providerConnections) {
             System.out.println(providerConnection.getJNDIInitialContext().getEnvironment().toString());
         }
     }

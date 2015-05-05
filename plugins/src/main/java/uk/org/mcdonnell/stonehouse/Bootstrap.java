@@ -20,11 +20,11 @@ public class Bootstrap
         new Bootstrap(DEFAULT_FOLDER, DEFAULT_FILE_FILTER);
     }
 
-    public Bootstrap(File folder) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+    public Bootstrap(final File folder) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
         new Bootstrap(folder, DEFAULT_FILE_FILTER);
     }
 
-    private Bootstrap(File folder, String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+    private Bootstrap(final File folder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
         ClasspathLoader.getInstance().addFolder(folder, fileFilter);
     }
 }
