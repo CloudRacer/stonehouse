@@ -21,7 +21,7 @@ public class DestinationTest {
 
     @Test
     public void getSingleDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
-        final String TEST_QUEUE_NAME = "Conv10AMSendQueue";
+        final String TEST_QUEUE_NAME = "test_queue_1";
 
         final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
         final ProviderConnection providerConnection = providerConnectionFactory.getAllProviders().get(0);
