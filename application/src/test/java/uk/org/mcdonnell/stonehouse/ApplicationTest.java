@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ QueueTest.class })
+@Suite.SuiteClasses({ BootstrapDefaultTest.class, QueueTest.class })
 public class ApplicationTest
 {
 }

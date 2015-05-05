@@ -9,8 +9,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>uk.org.mcdonnell.stonehouse</groupId>
-    <artifactId>plugins</artifactId>
-    <name>Plugins</name>
+    <artifactId>application</artifactId>
+    <name>Application</name>
     <packaging>jar</packaging>
 
     <dependencies>
