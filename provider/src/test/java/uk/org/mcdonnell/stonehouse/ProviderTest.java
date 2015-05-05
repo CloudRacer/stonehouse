@@ -16,7 +16,7 @@ import uk.org.mcdonnell.stonehouse.service.ProviderConnectionTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ ProviderConnectionTest.class, DestinationsTest.class, DestinationTest.class })
 public class ProviderTest {
-    private final static File DEFAULT_FOLDER = new File("../plugins/plugins");
+    private final static File DEFAULT_FOLDER = new File("../application/plugins");
 
     @BeforeClass
     public static void setupClass() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
