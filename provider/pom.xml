@@ -22,5 +22,13 @@
             <artifactId>utility</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>5.11.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
