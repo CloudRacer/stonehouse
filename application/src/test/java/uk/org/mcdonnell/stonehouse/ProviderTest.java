@@ -14,7 +14,7 @@ import org.junit.Test;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 
-public class QueueTest {
+public class ProviderTest {
 
     @BeforeClass
     public static void setupClass() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
@@ -22,7 +22,7 @@ public class QueueTest {
     }
 
     @Test
-    public void testGetAllQueues() throws InvalidPropertiesFormatException, IOException, NamingException {
+    public void testGetAllProviders() throws InvalidPropertiesFormatException, IOException, NamingException {
         final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
 
         final List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
