@@ -19,7 +19,7 @@ public class ProviderConnectionTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testProviderJNDIInitialContextEnvironmentIsNotEmpty() {
+    public void testProviderJNDIInitialContextEnvironmentIsEmpty() {
         Hashtable<String, String> emptyJNDIInitialContextEnvironment;
         try {
             final ProviderConnection providerConnection = new ProviderConnection();
@@ -42,20 +42,21 @@ public class ProviderConnectionTest {
         PropertyManipulation propertyManipulation;
         providerConnectionFactory.getAllProviders();
 
-        assertTrue(providerConnectionFactory.getAllProviders() != null);
+        Assert.assertNotNull("Not provider definitions retrieved from the configuration file.", providerConnectionFactory.getAllProviders());
         assertTrue(!providerConnectionFactory.getAllProviders().isEmpty());
 
         propertyManipulation = (PropertyManipulation) PrivateAccessor.invoke(
                 providerConnectionFactory, "getPropertyManipulation",
                 new Class[] {}, new Object[] {});
 
+        Assert.assertNotNull("No properties retrieved from the configuration file.", propertyManipulation);
+        assertTrue(!propertyManipulation.isEmpty());
+
+        System.out.println(String.format("Properties retrieved from the configuration file: %s.", propertyManipulation.toString()));
+
         assertTrue(propertyManipulation.containsKey(String.format("1.%s",
                 Context.INITIAL_CONTEXT_FACTORY)));
         assertTrue(propertyManipulation.containsKey(String.format("1.%s",
                 Context.PROVIDER_URL)));
-        assertTrue(propertyManipulation.containsKey(String.format("1.%s",
-                Context.SECURITY_PRINCIPAL)));
-        assertTrue(propertyManipulation.containsKey(String.format("1.%s",
-                Context.SECURITY_CREDENTIALS)));
     }
 }

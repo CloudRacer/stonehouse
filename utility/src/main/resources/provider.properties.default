@@ -1,8 +1,11 @@
 1.java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
-1.java.naming.provider.url=t3://localhost:7001
-1.java.naming.security.principal=weblogic
-1.java.naming.security.credentials=welcome1
-1.class.qualified.name=uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatisticsPlugin
+1.java.naming.provider.url=tcp://localhost:61616
+1.class.qualified.name=uk.org.mcdonnell.stonehouse.service.destination.vendor.ActiveMQDestinationStatisticsPlugin
+#2.java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
+#2.java.naming.provider.url=t3://localhost:7001
+#2.java.naming.security.principal=weblogic
+#2.java.naming.security.credentials=welcome1
+#2.class.qualified.name=uk.org.mcdonnell.stonehouse.service.destination.vendor.WebLogicDestinationStatisticsPlugin
 #3.java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
 #3.java.naming.provider.url=t3://localhost:7003
 #3.java.naming.security.principal=weblogic
