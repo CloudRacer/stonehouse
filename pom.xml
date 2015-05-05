@@ -45,6 +45,6 @@
 		<module>provider</module>
 		<module>utility</module>
 		<module>application</module>
-		<module>weblogic</module>
+		<module>plugin</module>
   </modules>
 </project>

@@ -28,9 +28,13 @@ public class Destinations {
             setDestinationList(new Hashtable<String, Destination>());
 
             try {
-                // TODO: Add this to the configuration file - one for each provider.
-                addDestinations(DestinationType.QUEUE, getProviderConnection().getJNDIInitialContext().list("queue"));
-                addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list("topic"));
+                final String jndiPrefixQueue = "jndi.prefix.queue";
+                final String jndiPrefixTopic = "jndi.prefix.topic";
+                final String jndiPrefixQueueValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixQueue);
+                final String jndiPrefixTopicValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixTopic);
+
+                addDestinations(DestinationType.QUEUE, getProviderConnection().getJNDIInitialContext().list(jndiPrefixQueueValue));
+                addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list(jndiPrefixTopicValue));
             } catch (final Exception e) {
                 // Rest the the Queue List.
                 setDestinationList(null);
