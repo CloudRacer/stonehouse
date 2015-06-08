@@ -29,12 +29,13 @@ public class Destinations {
 
             try {
                 final String jndiPrefixQueue = "jndi.prefix.queue";
-                final String jndiPrefixTopic = "jndi.prefix.topic";
+                // final String jndiPrefixTopic = "jndi.prefix.topic";
                 final String jndiPrefixQueueValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixQueue);
-                final String jndiPrefixTopicValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixTopic);
+                // final String jndiPrefixTopicValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixTopic);
 
                 addDestinations(DestinationType.QUEUE, getProviderConnection().getJNDIInitialContext().list(jndiPrefixQueueValue));
-                addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list(jndiPrefixTopicValue));
+                // TODO: add Topic support.
+                // addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list(jndiPrefixTopicValue));
             } catch (final Exception e) {
                 // Rest the the Queue List.
                 setDestinationList(null);
