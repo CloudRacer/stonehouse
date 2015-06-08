@@ -13,13 +13,13 @@ public class ProviderConnections {
 
     private PropertyManipulation propertyManipulation;
 
-    List<ProviderConnection> providerConnectionList = null;
+    List<ProviderConnectionFactory> providerConnectionList = null;
 
     @SuppressWarnings("unchecked")
-    public List<ProviderConnection> getAllProviders()
+    public List<ProviderConnectionFactory> getAllProviders()
             throws InvalidPropertiesFormatException, IOException {
         if (providerConnectionList == null) {
-            providerConnectionList = new ArrayList<ProviderConnection>();
+            providerConnectionList = new ArrayList<ProviderConnectionFactory>();
 
             Hashtable<String, String> providersJNDIInitialContextEnvironment = new Hashtable<String, String>();
             int index = 1;
@@ -39,7 +39,7 @@ public class ProviderConnections {
                 if (providersJNDIInitialContextEnvironment.isEmpty()) {
                     providersJNDIInitialContextEnvironment = null;
                 } else {
-                    final ProviderConnection providerConnection = new ProviderConnection();
+                    final ProviderConnectionFactory providerConnection = new ProviderConnectionFactory();
 
                     providerConnection
                             .setJNDIInitialContextEnvironment((Hashtable<String, String>) providersJNDIInitialContextEnvironment

@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 import uk.org.mcdonnell.stonehouse.api.destination.Destination;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations;
 
@@ -15,10 +15,10 @@ public class DestinationsTest {
 
     @Test
     public void getAllQueues() throws Exception {
-        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnections providerConnectionFactory = new ProviderConnections();
 
-        final List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
-        for (final ProviderConnection providerConnection : providerConnections) {
+        final List<ProviderConnectionFactory> providerConnections = providerConnectionFactory.getAllProviders();
+        for (final ProviderConnectionFactory providerConnection : providerConnections) {
             final Destinations destinations = new Destinations(providerConnection);
 
             final Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();

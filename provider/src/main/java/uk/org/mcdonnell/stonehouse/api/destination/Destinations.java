@@ -7,7 +7,7 @@ import javax.naming.NameClassPair;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 
 public class Destinations {
 
@@ -15,11 +15,11 @@ public class Destinations {
         QUEUE, TOPIC
     };
 
-    private ProviderConnection providerConnection = null;
+    private ProviderConnectionFactory providerConnection = null;
 
     private Hashtable<String, Destination> destinationList = null;
 
-    public Destinations(final ProviderConnection providerConnection) {
+    public Destinations(final ProviderConnectionFactory providerConnection) {
         setProviderConnection(providerConnection);
     }
 
@@ -56,11 +56,11 @@ public class Destinations {
         }
     }
 
-    private ProviderConnection getProviderConnection() {
+    private ProviderConnectionFactory getProviderConnection() {
         return providerConnection;
     }
 
-    private void setProviderConnection(final ProviderConnection providerConnection) {
+    private void setProviderConnection(final ProviderConnectionFactory providerConnection) {
         this.providerConnection = providerConnection;
     }
 

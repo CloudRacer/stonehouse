@@ -13,8 +13,8 @@ import javax.naming.NamingException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 
 public class ProviderContextTest {
 
@@ -25,11 +25,11 @@ public class ProviderContextTest {
 
     @Test
     public void testGetAllProviders() throws InvalidPropertiesFormatException, IOException, NamingException {
-        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnections providerConnectionFactory = new ProviderConnections();
 
-        final List<ProviderConnection> providerConnections = providerConnectionFactory.getAllProviders();
+        final List<ProviderConnectionFactory> providerConnections = providerConnectionFactory.getAllProviders();
 
-        for (final ProviderConnection providerConnection : providerConnections) {
+        for (final ProviderConnectionFactory providerConnection : providerConnections) {
             System.out.println(providerConnection.getJNDIInitialContext().getEnvironment().toString());
         }
 

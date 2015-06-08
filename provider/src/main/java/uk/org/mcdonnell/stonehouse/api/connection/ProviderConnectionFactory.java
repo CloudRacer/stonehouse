@@ -1,69 +1,69 @@
 package uk.org.mcdonnell.stonehouse.api.connection;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.InvalidPropertiesFormatException;
-import java.util.List;
-import java.util.Map.Entry;
 
-import uk.org.mcdonnell.common.generic.PropertyManipulation;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Queue;
+import javax.jms.QueueBrowser;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSession;
+import javax.jms.Session;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class ProviderConnectionFactory {
+    Hashtable<String, String> jndiInitialContextEnvironment;
+    InitialContext jndiInitialContext;
 
-    private PropertyManipulation propertyManipulation;
+    public ProviderConnectionFactory() {}
 
-    List<ProviderConnection> providerConnectionList = null;
-
-    @SuppressWarnings("unchecked")
-    public List<ProviderConnection> getAllProviders()
-            throws InvalidPropertiesFormatException, IOException {
-        if (providerConnectionList == null) {
-            providerConnectionList = new ArrayList<ProviderConnection>();
-
-            Hashtable<String, String> providersJNDIInitialContextEnvironment = new Hashtable<String, String>();
-            int index = 1;
-            while (providersJNDIInitialContextEnvironment != null) {
-                for (final Entry<Object, Object> property : getPropertyManipulation()
-                        .entrySet()) {
-                    if (property.getKey().toString()
-                            .startsWith(Integer.toString(index) + ".")) {
-                        String key = property.getKey().toString();
-
-                        key = key.substring(key.indexOf(".") + 1, key.length());
-
-                        providersJNDIInitialContextEnvironment.put(key,
-                                property.getValue().toString());
-                    }
-                }
-                if (providersJNDIInitialContextEnvironment.isEmpty()) {
-                    providersJNDIInitialContextEnvironment = null;
-                } else {
-                    final ProviderConnection providerConnection = new ProviderConnection();
-
-                    providerConnection
-                            .setJNDIInitialContextEnvironment((Hashtable<String, String>) providersJNDIInitialContextEnvironment
-                                    .clone());
-                    providerConnectionList.add(providerConnection);
-
-                    providersJNDIInitialContextEnvironment.clear();
-
-                    index++;
-                }
-            }
-        }
-
-        return providerConnectionList;
+    public void setJNDIInitialContextEnvironment(
+            final Hashtable<String, String> jndiInitialContextEnvironment) {
+        this.jndiInitialContextEnvironment = jndiInitialContextEnvironment;
     }
 
-    private PropertyManipulation getPropertyManipulation()
-            throws InvalidPropertiesFormatException, IOException {
-        if (propertyManipulation == null) {
-            final String PROVIDER_PROPERTY_FILENAME = "provider.properties";
-            propertyManipulation = new PropertyManipulation(
-                    PROVIDER_PROPERTY_FILENAME);
+    private Hashtable<String, String> getJNDIInitialContextEnvironment() {
+        if (jndiInitialContextEnvironment == null) {
+            jndiInitialContextEnvironment = new Hashtable<String, String>();
         }
 
-        return propertyManipulation;
+        return jndiInitialContextEnvironment;
+    }
+
+    public InitialContext getJNDIInitialContext() throws NamingException {
+        if (jndiInitialContext == null) {
+            jndiInitialContext = new InitialContext(
+                    getJNDIInitialContextEnvironment());
+        }
+
+        return jndiInitialContext;
+    }
+
+    public QueueBrowser getQueueBrowser(final String queueName) throws NamingException, JMSException {
+        final QueueSession queueSession = getQueueSession();
+        final InitialContext initialContext = getJNDIInitialContext();
+        // TODO: not all queue JNDI names have a prefix.
+        final Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", queueName));
+        final QueueBrowser queueBrowser = queueSession.createBrowser(queue);
+        return queueBrowser;
+    }
+
+    private QueueSession getQueueSession() throws NamingException, JMSException {
+        final QueueConnection queueConnection = getQueueConnection();
+        final QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+        return queueSession;
+    }
+
+    private QueueConnection getQueueConnection() throws NamingException, JMSException {
+        final InitialContext initialContext = getJNDIInitialContext();
+        // TODO: create the connection factory differently for each vendor; using properties for the configuration file (http://java.dzone.com/articles/jms-activemq).
+        final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+        connectionFactory.createConnection();
+        final QueueConnectionFactory queueConnectionFactory =
+                (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+        final QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
+        return queueConnection;
     }
 }

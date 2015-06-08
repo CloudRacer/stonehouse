@@ -12,8 +12,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import uk.org.mcdonnell.common.generic.PropertyManipulation;
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 
 public class ProviderConnectionTest {
 
@@ -22,7 +22,7 @@ public class ProviderConnectionTest {
     public void testProviderJNDIInitialContextEnvironmentIsEmpty() {
         Hashtable<String, String> emptyJNDIInitialContextEnvironment;
         try {
-            final ProviderConnection providerConnection = new ProviderConnection();
+            final ProviderConnectionFactory providerConnection = new ProviderConnectionFactory();
 
             emptyJNDIInitialContextEnvironment = (Hashtable<String, String>) PrivateAccessor
                     .invoke(providerConnection,
@@ -38,7 +38,7 @@ public class ProviderConnectionTest {
 
     @Test
     public void testGetAllProviders() throws Throwable {
-        final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
+        final ProviderConnections providerConnectionFactory = new ProviderConnections();
         PropertyManipulation propertyManipulation;
         providerConnectionFactory.getAllProviders();
 

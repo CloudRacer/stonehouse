@@ -9,7 +9,7 @@ import javax.jms.QueueBrowser;
 import javax.naming.NamingException;
 
 import uk.org.mcdonnell.common.generic.Reflect;
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 
 public abstract class DestinationStatisticsFactory implements DestinationStatistics {
@@ -19,23 +19,23 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         UNSUPPORTED
     };
 
-    private ProviderConnection providerConnection = null;
+    private ProviderConnectionFactory providerConnection = null;
     private DestinationType destinationType;
     private String destinationName;
 
     private DestinationStatistics vendorDestinationStatistics;
 
-    public DestinationStatisticsFactory(final ProviderConnection providerConnection, final DestinationType destinationType, final String destinationName) throws NamingException, JMSException {
+    public DestinationStatisticsFactory(final ProviderConnectionFactory providerConnection, final DestinationType destinationType, final String destinationName) throws NamingException, JMSException {
         setProviderConnection(providerConnection);
         setDestinationType(destinationType);
         setDestinationName(destinationName);
     }
 
-    public ProviderConnection getProviderConnection() {
+    public ProviderConnectionFactory getProviderConnection() {
         return providerConnection;
     }
 
-    private void setProviderConnection(final ProviderConnection providerConnection) {
+    private void setProviderConnection(final ProviderConnectionFactory providerConnection) {
         this.providerConnection = providerConnection;
     }
 

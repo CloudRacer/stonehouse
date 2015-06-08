@@ -4,7 +4,7 @@ import javax.jms.JMSException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatisticsFactory;
 
@@ -17,7 +17,7 @@ public class Destination extends DestinationStatisticsFactory {
         super(null, null, null);
     }
 
-    public Destination(final ProviderConnection providerConnection, final DestinationType destinationType, final String queueName) throws NamingException, JMSException {
+    public Destination(final ProviderConnectionFactory providerConnection, final DestinationType destinationType, final String queueName) throws NamingException, JMSException {
         super(providerConnection, destinationType, queueName);
 
         this.setDestinationName(queueName);

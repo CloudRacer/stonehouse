@@ -6,7 +6,7 @@ import javax.jms.JMSException;
 import javax.naming.NamingException;
 
 import uk.org.mcdonnell.common.generic.Reflect;
-import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnection;
+import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destination;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatistics;
@@ -19,7 +19,7 @@ public class WebLogicDestinationStatisticsPlugin extends Destination implements 
         super(null, null, null);
     };
 
-    public WebLogicDestinationStatisticsPlugin(final ProviderConnection providerConnection, final DestinationType destinationType, final String queueName) throws NamingException, JMSException {
+    public WebLogicDestinationStatisticsPlugin(final ProviderConnectionFactory providerConnection, final DestinationType destinationType, final String queueName) throws NamingException, JMSException {
         super(providerConnection, destinationType, queueName);
     }
 
