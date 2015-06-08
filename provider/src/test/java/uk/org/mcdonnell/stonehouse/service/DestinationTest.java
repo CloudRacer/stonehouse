@@ -20,14 +20,15 @@ import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatist
 public class DestinationTest {
 
     @Test
-    public void getSingleDetination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
-        final String TEST_QUEUE_NAME = "test_queue_1";
+    public void getSingleDestination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
+        final String TEST_QUEUE_NAME = "Crane31AMProcessQueue";
 
         final ProviderConnectionFactory providerConnectionFactory = new ProviderConnectionFactory();
         final ProviderConnection providerConnection = providerConnectionFactory.getAllProviders().get(0);
         final Destination destination = new Destination(providerConnection, DestinationType.QUEUE, TEST_QUEUE_NAME);
 
         assertTrue(destination.getDestinationName() == TEST_QUEUE_NAME);
+        assertTrue(destination.getPending() == 0);
 
         System.out.println(String.format("%s: %s.", destination.getDestinationName(), destination.getPending()));
     }
