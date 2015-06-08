@@ -57,6 +57,7 @@ public class ProviderConnection {
 
     private QueueConnection getQueueConnection() throws NamingException, JMSException {
         final InitialContext initialContext = getJNDIInitialContext();
+        // TODO: create the connection factory differently for each vendor; using properties for the configuration file (http://java.dzone.com/articles/jms-activemq).
         final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
         connectionFactory.createConnection();
         final QueueConnectionFactory queueConnectionFactory =
