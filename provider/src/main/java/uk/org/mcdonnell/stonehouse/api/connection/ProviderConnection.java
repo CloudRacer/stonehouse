@@ -44,6 +44,7 @@ public class ProviderConnection {
     public QueueBrowser getQueueBrowser(final String queueName) throws NamingException, JMSException {
         final QueueSession queueSession = getQueueSession();
         final InitialContext initialContext = getJNDIInitialContext();
+        // TODO: not all queue JNDI names have a prefix.
         final Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", queueName));
         final QueueBrowser queueBrowser = queueSession.createBrowser(queue);
         return queueBrowser;
