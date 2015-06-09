@@ -15,9 +15,15 @@ public class PropertyManipulation extends Properties
 {
     private static final long serialVersionUID = 1L;
 
+    private static final String DEFAULT_PROVIDER_PROPERTY_FILENAME = "provider.properties";
+
     private File file;
 
     private String filename;
+
+    public PropertyManipulation() throws InvalidPropertiesFormatException, IOException {
+        this(DEFAULT_PROVIDER_PROPERTY_FILENAME);
+    }
 
     public PropertyManipulation(final String filename) throws InvalidPropertiesFormatException, IOException
     {
