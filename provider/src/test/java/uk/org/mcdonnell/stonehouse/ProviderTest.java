@@ -51,10 +51,11 @@ public class ProviderTest {
 
     private static void createTestData() throws Exception {
         final String testQueueName = "test_queue_%s";
-        final int totalTestQueues = 100;
+        final int totalTestQueues = 10;
+        final int totalTestMessagesPerQueue = 2;
 
         for (int i = 1; i <= totalTestQueues; i++) {
-            new TestMessagesProducer(String.format(testQueueName, i), i).createMessages();
+            new TestMessagesProducer(String.format(testQueueName, i), totalTestMessagesPerQueue).createMessages();
         }
     }
 
