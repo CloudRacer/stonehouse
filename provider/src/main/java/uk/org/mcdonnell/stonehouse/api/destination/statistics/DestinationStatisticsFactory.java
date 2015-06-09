@@ -16,6 +16,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
 
     private static enum VENDORS {
         WEBLOGIC,
+        ACTIVEMQ,
         UNSUPPORTED
     };
 
@@ -108,6 +109,8 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
 
         if (getVendor().startsWith("weblogic")) {
             supportedVendor = VENDORS.WEBLOGIC;
+        } else if (getVendor().startsWith("org.apache.activemq")) {
+            supportedVendor = VENDORS.ACTIVEMQ;
         } else {
             supportedVendor = VENDORS.UNSUPPORTED;
         }
