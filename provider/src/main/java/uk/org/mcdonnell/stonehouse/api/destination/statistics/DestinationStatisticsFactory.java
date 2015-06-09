@@ -9,16 +9,12 @@ import javax.jms.QueueBrowser;
 import javax.naming.NamingException;
 
 import uk.org.mcdonnell.common.generic.Reflect;
+import uk.org.mcdonnell.common.vendor.configuration.VendorConfiguration;
+import uk.org.mcdonnell.common.vendor.configuration.VendorConfiguration.VENDORS;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 
 public abstract class DestinationStatisticsFactory implements DestinationStatistics {
-
-    private static enum VENDORS {
-        WEBLOGIC,
-        ACTIVEMQ,
-        UNSUPPORTED
-    };
 
     private ProviderConnectionFactory providerConnection = null;
     private DestinationType destinationType;
@@ -44,7 +40,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryUnsupportedException {
         Long pending;
 
-        if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
+        if (getSupportedVendor() == VendorConfiguration.VENDORS.UNSUPPORTED) {
             pending = getTotalNumberOfPendingMessages();
         } else {
             pending = getVendorDestinationStatistics().getPending();
