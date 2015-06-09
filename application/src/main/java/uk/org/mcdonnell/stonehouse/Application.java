@@ -2,7 +2,7 @@ package uk.org.mcdonnell.stonehouse;
 
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
-import java.util.List;
+import java.util.Map;
 
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
@@ -10,7 +10,7 @@ import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 public class Application
 {
 
-    public List<ProviderConnectionFactory> getAllQueues() throws InvalidPropertiesFormatException, IOException {
+    public Map<Integer, ProviderConnectionFactory> getAllQueues() throws InvalidPropertiesFormatException, IOException {
         final ProviderConnections providerConnectionFactory = new ProviderConnections();
 
         return providerConnectionFactory.getAllProviders();

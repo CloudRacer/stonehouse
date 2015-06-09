@@ -1,10 +1,10 @@
 package uk.org.mcdonnell.stonehouse.api.connection;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.InvalidPropertiesFormatException;
-import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import uk.org.mcdonnell.common.generic.PropertyManipulation;
@@ -13,13 +13,13 @@ public class ProviderConnections {
 
     private PropertyManipulation propertyManipulation;
 
-    List<ProviderConnectionFactory> providerConnectionList = null;
+    Map<Integer, ProviderConnectionFactory> providerConnectionList = null;
 
     @SuppressWarnings("unchecked")
-    public List<ProviderConnectionFactory> getAllProviders()
+    public Map<Integer, ProviderConnectionFactory> getAllProviders()
             throws InvalidPropertiesFormatException, IOException {
         if (providerConnectionList == null) {
-            providerConnectionList = new ArrayList<ProviderConnectionFactory>();
+            providerConnectionList = new HashMap<Integer, ProviderConnectionFactory>();
 
             Hashtable<String, String> providersJNDIInitialContextEnvironment = new Hashtable<String, String>();
             int index = 1;
@@ -44,7 +44,7 @@ public class ProviderConnections {
                     providerConnection
                             .setJNDIInitialContextEnvironment((Hashtable<String, String>) providersJNDIInitialContextEnvironment
                                     .clone());
-                    providerConnectionList.add(providerConnection);
+                    providerConnectionList.put(index, providerConnection);
 
                     providersJNDIInitialContextEnvironment.clear();
 

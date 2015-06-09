@@ -1,7 +1,7 @@
 package uk.org.mcdonnell.stonehouse.service;
 
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.junit.Test;
@@ -15,11 +15,11 @@ public class DestinationsTest {
 
     @Test
     public void getAllQueues() throws Exception {
-        final ProviderConnections providerConnectionFactory = new ProviderConnections();
+        final ProviderConnections providerConnections = new ProviderConnections();
 
-        final List<ProviderConnectionFactory> providerConnections = providerConnectionFactory.getAllProviders();
-        for (final ProviderConnectionFactory providerConnection : providerConnections) {
-            final Destinations destinations = new Destinations(providerConnection);
+        final Map<Integer, ProviderConnectionFactory> allProviders = providerConnections.getAllProviders();
+        for (final Map.Entry<Integer, ProviderConnectionFactory> providerConnection : allProviders.entrySet()) {
+            final Destinations destinations = new Destinations(providerConnection.getValue());
 
             final Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {

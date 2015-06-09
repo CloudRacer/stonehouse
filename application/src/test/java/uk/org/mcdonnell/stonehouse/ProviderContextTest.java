@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.InvalidPropertiesFormatException;
-import java.util.List;
+import java.util.Map;
 
 import javax.naming.NamingException;
 
@@ -27,10 +27,10 @@ public class ProviderContextTest {
     public void testGetAllProviders() throws InvalidPropertiesFormatException, IOException, NamingException {
         final ProviderConnections providerConnectionFactory = new ProviderConnections();
 
-        final List<ProviderConnectionFactory> providerConnections = providerConnectionFactory.getAllProviders();
+        final Map<Integer, ProviderConnectionFactory> providerConnections = providerConnectionFactory.getAllProviders();
 
-        for (final ProviderConnectionFactory providerConnection : providerConnections) {
-            System.out.println(providerConnection.getJNDIInitialContext().getEnvironment().toString());
+        for (final Map.Entry<Integer, ProviderConnectionFactory> providerConnection : providerConnections.entrySet()) {
+            System.out.println(providerConnection.getValue().getJNDIInitialContext().getEnvironment().toString());
         }
 
         assertTrue(true);
