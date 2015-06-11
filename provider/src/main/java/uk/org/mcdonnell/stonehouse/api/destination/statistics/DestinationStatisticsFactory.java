@@ -10,7 +10,6 @@ import javax.naming.NamingException;
 
 import uk.org.mcdonnell.common.generic.Reflect;
 import uk.org.mcdonnell.common.vendor.configuration.VendorConfiguration;
-import uk.org.mcdonnell.common.vendor.configuration.VendorConfiguration.VENDORS;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 
@@ -40,7 +39,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryUnsupportedException {
         Long pending;
 
-        if (getSupportedVendor() == VendorConfiguration.VENDORS.UNSUPPORTED) {
+        if (VendorConfiguration.isSupportedVendor(getVendor())) {
             pending = getTotalNumberOfPendingMessages();
         } else {
             pending = getVendorDestinationStatistics().getPending();
@@ -53,7 +52,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     public long getCurrent() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         Long current;
 
-        if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
+        if (VendorConfiguration.isSupportedVendor(getVendor())) {
             // Convert to a "trace" entry in a log.
             // System.out.println("JMS Message Provider vendor identified as WebLogic.");
 
@@ -69,7 +68,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
     public long getReceived() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         Long received;
 
-        if (getSupportedVendor() == VENDORS.UNSUPPORTED) {
+        if (VendorConfiguration.isSupportedVendor(getVendor())) {
             // Convert to a "trace" entry in a log.
             // System.out.println("JMS Message Provider vendor identified as WebLogic.");
 
@@ -98,22 +97,6 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         }
 
         return messageCount;
-    }
-
-    private VENDORS getSupportedVendor() throws NamingException {
-        VENDORS supportedVendor;
-
-        if (getVendor().startsWith("weblogic")) {
-            supportedVendor = VENDORS.WEBLOGIC;
-        } else if (getVendor().startsWith("org.apache.activemq")) {
-            supportedVendor = VENDORS.ACTIVEMQ;
-        } else {
-            supportedVendor = VENDORS.UNSUPPORTED;
-        }
-
-        // TODO: Convert to a "trace" entry in a log.
-        // System.out.println("JMS Message Provider vendor identified as WebLogic.");
-        return supportedVendor;
     }
 
     private String getVendor() throws NamingException {
