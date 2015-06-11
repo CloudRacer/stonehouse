@@ -18,4 +18,22 @@ public class VendorConfiguration extends PropertyManipulation {
     public VendorConfiguration() throws InvalidPropertiesFormatException, IOException {
         super();
     }
+
+    public static boolean isSupportedVendor(String vendorName) {
+        return (getVendorType(vendorName).equals(VENDORS.UNSUPPORTED) ? false : true);
+    }
+
+    private static VENDORS getVendorType(String vendorName) {
+        VENDORS supportedVendor;
+
+        if (vendorName.startsWith("weblogic")) {
+            supportedVendor = VENDORS.WEBLOGIC;
+        } else if (vendorName.startsWith("org.apache.activemq")) {
+            supportedVendor = VENDORS.ACTIVEMQ;
+        } else {
+            supportedVendor = VENDORS.UNSUPPORTED;
+        }
+
+        return supportedVendor;
+    }
 }
