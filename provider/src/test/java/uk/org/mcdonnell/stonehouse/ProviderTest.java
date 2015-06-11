@@ -1,7 +1,5 @@
 package uk.org.mcdonnell.stonehouse;
 
-import java.io.File;
-
 import javax.jms.Connection;
 import javax.jms.DeliveryMode;
 import javax.jms.Destination;
@@ -26,7 +24,6 @@ import uk.org.mcdonnell.stonehouse.service.ProviderConnectionTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ ProviderConnectionTest.class, DestinationsTest.class, DestinationTest.class })
 public class ProviderTest {
-    private final static File DEFAULT_FOLDER = new File("../application/plugins");
     private static BrokerService broker;
     private static NetworkConnector networkConnector;
     private static TransportConnector transportConnector;
@@ -34,7 +31,6 @@ public class ProviderTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        new Bootstrap(DEFAULT_FOLDER);
 
         // Start the ActiveMQ broker.
         getBroker();
