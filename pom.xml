@@ -42,9 +42,9 @@
 	</dependencies>
 
 	<modules>
-		<module>provider</module>
 		<module>utility</module>
-		<module>application</module>
 		<module>plugin</module>
+		<module>provider</module>
+		<module>application</module>
   </modules>
 </project>
