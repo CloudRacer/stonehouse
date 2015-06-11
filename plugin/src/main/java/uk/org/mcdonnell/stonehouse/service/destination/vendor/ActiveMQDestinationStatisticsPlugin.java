@@ -21,18 +21,18 @@ public class ActiveMQDestinationStatisticsPlugin extends Destination implements 
     @Override
     public long getCurrent() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         // TODO Auto-generated method stub
-        return super.getCurrent();
+        return 0;
     }
 
     @Override
     public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryUnsupportedException {
         // TODO Auto-generated method stub
-        return super.getPending();
+        return 0;
     }
 
     @Override
     public long getReceived() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
         // TODO Auto-generated method stub
-        return super.getReceived();
+        return 0;
     }
 }
