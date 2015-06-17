@@ -45,7 +45,7 @@ public class ProviderConnectionFactory {
         final QueueSession queueSession = getQueueSession();
         final InitialContext initialContext = getJNDIInitialContext();
         // TODO: not all queue JNDI names have a prefix.
-        final Queue queue = (Queue) initialContext.lookup(String.format("queue/%s", queueName));
+        final Queue queue = (Queue) initialContext.lookup(String.format("%s", queueName));
         final QueueBrowser queueBrowser = queueSession.createBrowser(queue);
         return queueBrowser;
     }
@@ -59,11 +59,15 @@ public class ProviderConnectionFactory {
     private QueueConnection getQueueConnection() throws NamingException, JMSException {
         final InitialContext initialContext = getJNDIInitialContext();
         // TODO: create the connection factory differently for each vendor; using properties for the configuration file (http://java.dzone.com/articles/jms-activemq).
-        final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+        final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup(getVendorJNDIConnectionFactoryName());
         connectionFactory.createConnection();
         final QueueConnectionFactory queueConnectionFactory =
-                (QueueConnectionFactory) initialContext.lookup("weblogic.jms.ConnectionFactory");
+                (QueueConnectionFactory) initialContext.lookup(getVendorJNDIConnectionFactoryName());
         final QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
         return queueConnection;
+    }
+
+    private String getVendorJNDIConnectionFactoryName() throws NamingException {
+        return getJNDIInitialContext().getEnvironment().get("jndi.connection.factory").toString();
     }
 }
