@@ -45,7 +45,7 @@ public class ProviderConnectionFactory {
         final QueueSession queueSession = getQueueSession();
         final InitialContext initialContext = getJNDIInitialContext();
         // TODO: not all queue JNDI names have a prefix.
-        final Queue queue = (Queue) initialContext.lookup(String.format("%s", queueName));
+        final Queue queue = (Queue) initialContext.lookup(String.format("%s%s", getJNDIInitialContext().getEnvironment().get("jndi.prefix.queue"), queueName));
         final QueueBrowser queueBrowser = queueSession.createBrowser(queue);
         return queueBrowser;
     }
