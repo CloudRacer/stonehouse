@@ -59,6 +59,7 @@ public class ProviderTest {
         if (broker == null) {
             broker = new BrokerService();
             broker.setBrokerName("stonehouse");
+            broker.addConnector("tcp://localhost:61616");
             broker.setUseShutdownHook(false);
             broker.setPersistent(false);
             broker.setUseJmx(true); // jConsole connection URI: service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
