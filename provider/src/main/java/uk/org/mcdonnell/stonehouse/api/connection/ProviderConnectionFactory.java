@@ -44,7 +44,6 @@ public class ProviderConnectionFactory {
     public QueueBrowser getQueueBrowser(final String queueName) throws NamingException, JMSException {
         final QueueSession queueSession = getQueueSession();
         final InitialContext initialContext = getJNDIInitialContext();
-        // TODO: not all queue JNDI names have a prefix.
         final Queue queue = (Queue) initialContext.lookup(String.format("%s%s", getJNDIInitialContext().getEnvironment().get("jndi.prefix.queue"), queueName));
         final QueueBrowser queueBrowser = queueSession.createBrowser(queue);
         return queueBrowser;
@@ -58,7 +57,6 @@ public class ProviderConnectionFactory {
 
     private QueueConnection getQueueConnection() throws NamingException, JMSException {
         final InitialContext initialContext = getJNDIInitialContext();
-        // TODO: create the connection factory differently for each vendor; using properties for the configuration file (http://java.dzone.com/articles/jms-activemq).
         final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup(getVendorJNDIConnectionFactoryName());
         connectionFactory.createConnection();
         final QueueConnectionFactory queueConnectionFactory =

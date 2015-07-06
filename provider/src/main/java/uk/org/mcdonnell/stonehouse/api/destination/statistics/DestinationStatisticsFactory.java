@@ -85,7 +85,6 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
 
         // TODO: count the messages in a Topic also.
         if (getDestinationType() == DestinationType.QUEUE) {
-            // TODO: Again, put the JNDI queue root into configuration.
             final QueueBrowser queueBrowser = getProviderConnection().getQueueBrowser(getDestinationName());
 
             @SuppressWarnings("unchecked")
@@ -121,8 +120,6 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
 
     private DestinationStatistics getVendorDestinationStatistics() throws NamingException, JMSException, DestinationStatisticsFactoryUnsupportedException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         if (vendorDestinationStatistics == null) {
-            // TODO: instantiate using the reflection functionality in the Reflect class of the utility project.
-            // vendorDestinationStatistics = new WebLogicDestinationStatisticsPlugin(getProviderConnection(), getDestinationType(), getDestinationName());
             final String classQualifiedNamePropertyName = "class.qualified.name";
             final String classQualifiedName = getProviderConnection().getJNDIInitialContext().getEnvironment().get(classQualifiedNamePropertyName).toString();
 
