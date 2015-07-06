@@ -15,24 +15,23 @@ public class ActiveMQDestinationStatisticsPlugin extends Destination implements 
 
     public ActiveMQDestinationStatisticsPlugin(ProviderConnectionFactory providerConnection, DestinationType destinationType, String queueName) throws NamingException, JMSException {
         super(providerConnection, destinationType, queueName);
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public long getCurrent() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
-        // TODO Auto-generated method stub
+        // TODO AMQ getCurrent() under construction.
         return 0;
     }
 
     @Override
     public long getPending() throws NamingException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, JMSException, DestinationStatisticsFactoryUnsupportedException {
-        // TODO Auto-generated method stub
+        // TODO AMQ getPending() under construction.
         return 0;
     }
 
     @Override
     public long getReceived() throws NamingException, JMSException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {
-        // TODO Auto-generated method stub
+        // TODO AMQ getReceived() under construction.
         return 0;
     }
 }
