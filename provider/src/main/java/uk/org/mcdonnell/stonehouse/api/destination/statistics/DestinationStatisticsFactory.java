@@ -53,7 +53,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         Long current;
 
         if (VendorConfiguration.isSupportedVendor(getVendor())) {
-            // Convert to a "trace" entry in a log.
+            // TODO Convert to a "trace" entry in a log.
             // System.out.println("JMS Message Provider vendor identified as WebLogic.");
 
             current = (long) 0;
@@ -69,7 +69,7 @@ public abstract class DestinationStatisticsFactory implements DestinationStatist
         Long received;
 
         if (VendorConfiguration.isSupportedVendor(getVendor())) {
-            // Convert to a "trace" entry in a log.
+            // TODO Convert to a "trace" entry in a log.
             // System.out.println("JMS Message Provider vendor identified as WebLogic.");
 
             received = (long) 0;
