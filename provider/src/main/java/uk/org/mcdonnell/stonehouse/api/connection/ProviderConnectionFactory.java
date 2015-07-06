@@ -52,6 +52,7 @@ public class ProviderConnectionFactory {
     private QueueSession getQueueSession() throws NamingException, JMSException {
         final QueueConnection queueConnection = getQueueConnection();
         final QueueSession queueSession = queueConnection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+        queueConnection.start();
         return queueSession;
     }
 
