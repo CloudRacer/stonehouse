@@ -9,6 +9,7 @@ import java.util.InvalidPropertiesFormatException;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
@@ -28,6 +29,6 @@ public class DestinationTest {
         final Destination destination = new Destination(providerConnectionFactory, DestinationType.QUEUE, TEST_QUEUE_NAME);
 
         assertTrue(destination.getDestinationName() == TEST_QUEUE_NAME);
-        assertTrue(destination.getPending() == 0);
+        Assert.assertEquals(2, destination.getPending());
     }
 }
