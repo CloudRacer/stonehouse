@@ -1,19 +1,15 @@
-package uk.org.mcdonnell.common.generic;
+package uk.org.mcdonnell.common;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Search
-{
-    private Search()
-    {}
+public class Search {
+    private Search() {}
 
-    public static Matcher findRegEx(final String data, final String regex)
-    {
+    public static Matcher findRegEx(final String data, final String regex) {
         Matcher matcher = null;
 
-        if (data != null)
-        {
+        if (data != null) {
             final Pattern pattern = Pattern.compile(regex);
             matcher = pattern.matcher(data);
         }

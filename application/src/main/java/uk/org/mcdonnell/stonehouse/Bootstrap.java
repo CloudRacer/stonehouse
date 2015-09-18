@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 
-import uk.org.mcdonnell.common.generic.ClasspathLoader;
+import uk.org.mcdonnell.common.ClasspathHelper;
 
 /**
  * Hello world!
@@ -25,6 +25,6 @@ public class Bootstrap
     }
 
     private Bootstrap(final File folder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
-        ClasspathLoader.getInstance().addFolder(folder, fileFilter);
+        ClasspathHelper.getInstance().addFolder(folder, fileFilter);
     }
 }

@@ -11,7 +11,7 @@ import junitx.util.PrivateAccessor;
 import org.junit.Assert;
 import org.junit.Test;
 
-import uk.org.mcdonnell.common.generic.PropertyManipulation;
+import uk.org.mcdonnell.common.PropertyManipulation;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 

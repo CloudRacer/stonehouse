@@ -9,6 +9,8 @@ import java.util.InvalidPropertiesFormatException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import uk.org.mcdonnell.common.PropertyManipulation;
+
 public class PropertyManipulationTest {
 
     private static final String PROVIDER_PROPERTY_FILENAME = "provider.properties";

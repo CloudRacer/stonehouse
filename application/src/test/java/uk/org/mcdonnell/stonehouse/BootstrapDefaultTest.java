@@ -1,7 +1,7 @@
 package uk.org.mcdonnell.stonehouse;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import uk.org.mcdonnell.common.generic.ClasspathLoader;
-import uk.org.mcdonnell.common.generic.FileManipulation;
+import uk.org.mcdonnell.common.ClasspathHelper;
+import uk.org.mcdonnell.common.FileHelper;
 
 public class BootstrapDefaultTest {
 
@@ -22,14 +22,13 @@ public class BootstrapDefaultTest {
         try {
             new Bootstrap();
 
-            classpath = ClasspathLoader.getInstance().getClasspath();
+            classpath = ClasspathHelper.getInstance().getClasspath();
 
-            final List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
+            final List<File> files = FileHelper.getFileList(pluginFolder, ".*.jar");
+            assertEquals(5, files.size());
             for (final File file : files) {
                 assertFalse(classpath.indexOf(file.getName()) == 0);
             }
-
-            assertTrue(true);
         } catch (final Exception e) {
             Assert.fail(e.getMessage());
         }

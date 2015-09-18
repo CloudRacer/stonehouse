@@ -3,7 +3,7 @@ package uk.org.mcdonnell.common.vendor.configuration;
 import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 
-import uk.org.mcdonnell.common.generic.PropertyManipulation;
+import uk.org.mcdonnell.common.PropertyManipulation;
 
 public class VendorConfiguration extends PropertyManipulation {
 

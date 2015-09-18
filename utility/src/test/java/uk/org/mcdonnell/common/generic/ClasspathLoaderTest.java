@@ -9,6 +9,9 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import uk.org.mcdonnell.common.ClasspathHelper;
+import uk.org.mcdonnell.common.FileHelper;
+
 public class ClasspathLoaderTest {
 
     @Test
@@ -17,11 +20,11 @@ public class ClasspathLoaderTest {
         String classpath;
 
         try {
-            ClasspathLoader.getInstance().addFolder(pluginFolder, ".*.jar");
+            ClasspathHelper.getInstance().addFolder(pluginFolder, ".*.jar");
 
-            classpath = ClasspathLoader.getInstance().getClasspath();
+            classpath = ClasspathHelper.getInstance().getClasspath();
 
-            final List<File> files = FileManipulation.getFileList(pluginFolder, ".*.jar");
+            final List<File> files = FileHelper.getFileList(pluginFolder, ".*.jar");
             for (final File file : files) {
                 assertFalse(classpath.indexOf(file.getName()) == 0);
             }
