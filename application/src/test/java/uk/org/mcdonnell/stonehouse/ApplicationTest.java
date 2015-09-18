@@ -5,6 +5,5 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ BootstrapDefaultTest.class, ProviderContextTest.class })
-public class ApplicationTest
-{
+public class ApplicationTest {
 }
