@@ -31,7 +31,7 @@ public final class FileHelper {
                 while (i < filters.length && !match) {
                     filter = filters[i];
 
-                    match = Search.isRegExFound(name, filter);
+                    match = SearchHelper.isRegExFound(name, filter);
 
                     i++;
                 }
