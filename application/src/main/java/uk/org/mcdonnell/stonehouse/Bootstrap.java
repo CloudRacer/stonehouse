@@ -9,10 +9,9 @@ import uk.org.mcdonnell.common.ClasspathHelper;
 
 /**
  * Hello world!
- * 
+ *
  */
-public class Bootstrap
-{
+public final class Bootstrap {
     private final File DEFAULT_FOLDER = new File("./plugins");
     private final String DEFAULT_FILE_FILTER = ".*.jar";
 
@@ -26,5 +25,9 @@ public class Bootstrap
 
     private Bootstrap(final File folder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
         ClasspathHelper.getInstance().addFolder(folder, fileFilter);
+    }
+
+    public static void start() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
+        new Bootstrap();
     }
 }
