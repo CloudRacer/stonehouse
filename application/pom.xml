@@ -26,6 +26,12 @@
             <artifactId>utility</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- Added as a dependency so that it gets bundled with inside the JAR. -->
+        <dependency>
+            <groupId>uk.org.mcdonnell.stonehouse</groupId>
+            <artifactId>provider</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
