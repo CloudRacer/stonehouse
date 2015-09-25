@@ -1,0 +1,8 @@
+[Unit]
+Description=stonehouse
+
+[Service]
+Type=simple
+ExecStart=/bin/sh /vagrant/stonehouse-bundle/stonehouse.sh
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=300
