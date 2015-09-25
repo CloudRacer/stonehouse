@@ -13,7 +13,7 @@
     <groupId>uk.org.mcdonnell</groupId>
     <artifactId>stonehouse</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Stonehouse</name>
+    <name>stonehouse</name>
     <packaging>pom</packaging>
 
     <url>https://github.com/CloudRacer/stonehouse</url>
@@ -28,7 +28,7 @@
         <module>utility</module>
         <module>plugin</module>
         <module>provider</module>
-        <module>application</module>
+        <module>stonehouse</module>
     </modules>
 
     <dependencies>

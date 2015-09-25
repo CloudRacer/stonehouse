@@ -11,8 +11,8 @@
     </parent>
 
     <groupId>uk.org.mcdonnell.stonehouse</groupId>
-    <artifactId>application</artifactId>
-    <name>Application</name>
+    <artifactId>stonehouse</artifactId>
+    <name>stonehouse</name>
     <packaging>jar</packaging>
 
     <dependencies>
