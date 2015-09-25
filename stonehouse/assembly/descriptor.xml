@@ -14,7 +14,7 @@
         </fileSet>
         <fileSet>
             <directory>install</directory>
-            <outputDirectory>install</outputDirectory>
+            <outputDirectory>/</outputDirectory>
             <lineEnding>unix</lineEnding>
             <fileMode>0755</fileMode>
         </fileSet>
