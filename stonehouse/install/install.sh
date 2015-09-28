@@ -65,6 +65,13 @@ fi
 APPLICATION_NAME=stonehouse
 APPLICATION_DESTINATION_FOLDER_NAME=/$APPLICATION_NAME
 
-/usr/bin/docker run --name=$APPLICATION_NAME -v $SCRIPT_FOLDER:$APPLICATION_DESTINATION_FOLDER_NAME --expose=8080 --publish=8080:8080 --restart="always" --detach=true java:latest java -jar $APPLICATION_DESTINATION_FOLDER_NAME/$APPLICATION_NAME-1.0-SNAPSHOT.jar
+/usr/bin/docker run \
+    --name=$APPLICATION_NAME \
+    -v $SCRIPT_FOLDER:$APPLICATION_DESTINATION_FOLDER_NAME \
+    --expose=8080 --publish=8080:8080 \
+    --restart="always" \
+    --detach=true \
+    java:latest \
+    java -jar $APPLICATION_DESTINATION_FOLDER_NAME/$APPLICATION_NAME-1.0-SNAPSHOT.jar
 
 /usr/bin/docker commit $APPLICATION_NAME
