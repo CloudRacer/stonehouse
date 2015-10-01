@@ -3,7 +3,7 @@ package uk.org.mcdonnell.common;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class Reflect {
+public final class Reflect {
 
     private String className;
     private String methodName;
@@ -61,8 +61,7 @@ public class Reflect {
         if (clazz == null) {
             if (getClassName() != null) {
                 clazz = Class.forName(getClassName());
-            } else
-            {
+            } else {
                 clazz = getObject().getClass();
             }
         }
