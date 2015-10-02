@@ -46,7 +46,6 @@ public class ProviderTest {
     }
 
     private static void createTestData() throws Exception {
-        System.out.println("TEST");
         final String testQueueName = "test_queue_%s";
         final int totalTestQueues = 10;
         final int totalTestMessagesPerQueue = 2;
