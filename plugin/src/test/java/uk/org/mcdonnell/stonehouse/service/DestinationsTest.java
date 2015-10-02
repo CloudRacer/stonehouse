@@ -4,14 +4,33 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 import uk.org.mcdonnell.stonehouse.api.destination.Destination;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations;
+import uk.org.mcdonnell.stonehouse.helper.ActiveMQHelperBaseIT;
 
-public class DestinationsTest {
+public class DestinationsTest extends ActiveMQHelperBaseIT {
+
+    @BeforeClass
+    public static void setupClass() throws Exception {
+
+        // Start the ActiveMQ broker.
+        getBroker();
+
+        // Create test data.
+        createTestData();
+    }
+
+    @AfterClass
+    public static void tearDown() throws Exception {
+        setConnection(null);
+        setBroker(null);
+    }
 
     @Test
     public void getAllQueues() throws Exception {
@@ -24,7 +43,8 @@ public class DestinationsTest {
             final Iterator<Entry<String, Destination>> it = destinations.getAllDestinations().entrySet().iterator();
             while (it.hasNext()) {
                 final Destination destination = it.next().getValue();
-                System.out.println(String.format("%s - %s - %s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getPending(), destination.getCurrent(), destination.getReceived()));
+                // System.out.println(String.format("%s - %s - %s - %s - %s", destination.getDestinationType().toString(), destination.getDestinationName(), destination.getPending(), destination.getCurrent(), destination.getReceived()));
+                System.out.println(String.format("%s - %s.", destination.getDestinationType().toString(), destination.getDestinationName()));
             }
         }
     }

@@ -3,8 +3,13 @@
 #1.java.naming.provider.url=vm://stonehouse
 1.jndi.connection.factory=ConnectionFactory
 1.jndi.prefix.queue=dynamicQueues/
+# ActiveMQ default.
+#1.jndi.prefix.queue=queue://
 1.jndi.prefix.topic=Topic
 1.class.qualified.name=uk.org.mcdonnell.stonehouse.service.destination.vendor.ActiveMQDestinationStatisticsPlugin
+1.jmx.url=service:jmx:rmi:///jndi/rmi://localhost:1099/jmxrmi
+1.jmx.broker.name=org.apache.activemq:type=Broker,brokerName=stonehouse
+1.jmx.broker.queue.attribute=Queues
 #1.java.naming.factory.initial=weblogic.jndi.WLInitialContextFactory
 #1.java.naming.provider.url=t3://localhost:7001
 #1.jndi.connection.factory=weblogic.jms.ConnectionFactory
