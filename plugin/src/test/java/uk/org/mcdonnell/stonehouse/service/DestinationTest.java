@@ -9,7 +9,9 @@ import java.util.InvalidPropertiesFormatException;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
@@ -17,8 +19,24 @@ import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 import uk.org.mcdonnell.stonehouse.api.destination.Destination;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatisticsFactoryUnsupportedException;
+import uk.org.mcdonnell.stonehouse.helper.ActiveMQHelperBaseIT;
 
-public class DestinationTest {
+public class DestinationTest extends ActiveMQHelperBaseIT {
+    @BeforeClass
+    public static void setupClass() throws Exception {
+
+        // Start the ActiveMQ broker.
+        getBroker();
+
+        // Create test data.
+        createTestData();
+    }
+
+    @AfterClass
+    public static void tearDown() throws Exception {
+        setConnection(null);
+        setBroker(null);
+    }
 
     @Test
     public void getSingleDestination() throws InvalidPropertiesFormatException, IOException, NamingException, JMSException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, DestinationStatisticsFactoryUnsupportedException {

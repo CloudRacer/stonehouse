@@ -1,10 +1,19 @@
 package uk.org.mcdonnell.stonehouse.api.destination;
 
+import java.io.IOException;
 import java.util.Hashtable;
 
 import javax.jms.JMSException;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
+import javax.management.AttributeNotFoundException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanException;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import javax.management.ReflectionException;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
 import javax.naming.NamingException;
 
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
@@ -23,37 +32,21 @@ public class Destinations {
         setProviderConnection(providerConnection);
     }
 
-    public Hashtable<String, Destination> getAllDestinations() throws Exception {
-        if (getDestinationList() == null) {
-            setDestinationList(new Hashtable<String, Destination>());
+    public Hashtable<String, Destination> getAllDestinations() throws IOException, MalformedObjectNameException, NamingException, JMSException, AttributeNotFoundException, InstanceNotFoundException, MBeanException, ReflectionException {
+        final String jmxURL = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get("jmx.url");
+        final String jmxBrokerName = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get("jmx.broker.name");
+        final String jmxBrokerQueueAttribute = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get("jmx.broker.queue.attribute");
 
-            try {
-                final String jndiPrefixQueue = "jndi.prefix.queue";
-                // final String jndiPrefixTopic = "jndi.prefix.topic";
-                final String jndiPrefixQueueValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixQueue);
-                // final String jndiPrefixTopicValue = (String) getProviderConnection().getJNDIInitialContext().getEnvironment().get(jndiPrefixTopic);
-
-                addDestinations(DestinationType.QUEUE, getProviderConnection().getJNDIInitialContext().list(jndiPrefixQueueValue));
-                // TODO: add Topic support.
-                // addDestinations(DestinationType.TOPIC, getProviderConnection().getJNDIInitialContext().list(jndiPrefixTopicValue));
-            } catch (final Exception e) {
-                // Rest the the Queue List.
-                setDestinationList(null);
-
-                throw e;
-            }
+        final JMXServiceURL url = new JMXServiceURL(jmxURL);
+        final JMXConnector jmxc = JMXConnectorFactory.connect(url);
+        final MBeanServerConnection conn = jmxc.getMBeanServerConnection();
+        final ObjectName broker = new ObjectName(jmxBrokerName);
+        final ObjectName[] queues = (ObjectName[]) conn.getAttribute(broker, jmxBrokerQueueAttribute);
+        for (final ObjectName queue : queues) {
+            getDestinationList().put(queue.toString(), new Destination(getProviderConnection(), DestinationType.QUEUE, queue.toString()));
         }
 
         return getDestinationList();
-    }
-
-    private void addDestinations(final DestinationType destinationType, final NamingEnumeration<NameClassPair> jndiList) throws NamingException, JMSException {
-        while (jndiList.hasMore()) {
-            final String jndiName = jndiList.next().getName();
-
-            final Destination destination = new Destination(getProviderConnection(), destinationType, jndiName);
-            getDestinationList().put(destination.getDestinationName(), destination);
-        }
     }
 
     private ProviderConnectionFactory getProviderConnection() {
@@ -65,10 +58,10 @@ public class Destinations {
     }
 
     private Hashtable<String, Destination> getDestinationList() {
-        return destinationList;
-    }
+        if (destinationList == null) {
+            destinationList = new Hashtable<String, Destination>();
+        }
 
-    private void setDestinationList(final Hashtable<String, Destination> destinationList) {
-        this.destinationList = destinationList;
+        return destinationList;
     }
 }
