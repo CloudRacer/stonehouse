@@ -60,8 +60,7 @@ public class ProviderConnectionFactory {
         final InitialContext initialContext = getJNDIInitialContext();
         final ConnectionFactory connectionFactory = (QueueConnectionFactory) initialContext.lookup(getVendorJNDIConnectionFactoryName());
         connectionFactory.createConnection();
-        final QueueConnectionFactory queueConnectionFactory =
-                (QueueConnectionFactory) initialContext.lookup(getVendorJNDIConnectionFactoryName());
+        final QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) initialContext.lookup(getVendorJNDIConnectionFactoryName());
         final QueueConnection queueConnection = queueConnectionFactory.createQueueConnection();
         return queueConnection;
     }
