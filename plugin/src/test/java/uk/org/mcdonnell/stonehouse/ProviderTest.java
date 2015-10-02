@@ -103,7 +103,9 @@ public class ProviderTest {
 
     private static void setConnection(final Connection connection) throws JMSException {
         if (connection == null) {
-            ProviderTest.connection.stop();
+            if (ProviderTest.connection != null) {
+                ProviderTest.connection.stop();
+            }
         }
 
         ProviderTest.connection = connection;
