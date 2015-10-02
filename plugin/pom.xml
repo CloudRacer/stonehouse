@@ -28,10 +28,11 @@
     <!-- Testing -->
     <dependency>
       <groupId>org.apache.activemq</groupId>
-      <artifactId>activemq-broker</artifactId>
+      <artifactId>activemq-all</artifactId>
       <version>5.11.1</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-kahadb-store</artifactId>
