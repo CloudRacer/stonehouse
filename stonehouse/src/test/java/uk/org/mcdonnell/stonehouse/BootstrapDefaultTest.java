@@ -20,17 +20,17 @@ public class BootstrapDefaultTest {
 
     @Test
     public void loadDefaultBootstrap() {
-        final File pluginFolder = new File(".\\plugins");
+        final File pluginFolder = new File("./plugins");
         try {
             new Bootstrap();
 
-            // final Set<String> expectedPluginFilenames = new HashSet<String>(Arrays.asList(".\\plugins\\activemq-all-5.11.1.jar", ".\\plugins\\plugin-1.0-SNAPSHOT.jar", ".\\plugins\\provider-1.0-SNAPSHOT.jar", ".\\plugins\\weblogic-1.0-SNAPSHOT.jar", ".\\plugins\\wlfullclient.jar"));
+            // final Set<String> expectedPluginFilenames = new HashSet<String>(Arrays.asList("./plugins/activemq-all-5.11.1.jar", "./plugins/plugin-1.0-SNAPSHOT.jar", "./plugins/provider-1.0-SNAPSHOT.jar", "./plugins/weblogic-1.0-SNAPSHOT.jar", "./plugins/wlfullclient.jar"));
             final Set<File> expectedPluginFilenames = new HashSet<File>();
-            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "\\activemq-all-5.11.1.jar")));
-            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "\\plugin-1.0-SNAPSHOT.jar")));
-            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "\\provider-1.0-SNAPSHOT.jar")));
-            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "\\weblogic-1.0-SNAPSHOT.jar")));
-            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "\\wlfullclient.jar")));
+            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/activemq-all-5.11.1.jar")));
+            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/plugin-1.0-SNAPSHOT.jar")));
+            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/provider-1.0-SNAPSHOT.jar")));
+            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/weblogic-1.0-SNAPSHOT.jar")));
+            expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/wlfullclient.jar")));
 
             final List<File> files = FileHelper.getFileList(pluginFolder, ".*.jar");
             final Collection<File> missingPlugins = CollectionUtils.subtract(files, expectedPluginFilenames);
