@@ -1,3 +1,5 @@
+echo Cleaning Eclipse configuration files...
+
 find . -name ".classpath" -delete
 find . -name ".project" -delete
 
