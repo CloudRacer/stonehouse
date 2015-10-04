@@ -77,8 +77,10 @@ public final class ClasspathHelper {
         public static void addFile(final String filename) throws NoSuchMethodException, SecurityException,
                 IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException,
                 IOException {
-            final File f = new File(filename);
-            addURL(f.toURI().toURL());
+            final File file = new File(filename);
+            if (!isJarInClasspath(file)) {
+                addURL(file.toURI().toURL());
+            }
         }
 
         public String getClasspath() {
@@ -119,6 +121,30 @@ public final class ClasspathHelper {
             method.invoke(sysloader, new Object[] {
                     url
             });
+        }
+
+        private static boolean isJarInClasspath(File jarFile) {
+            final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
+            if (classLoader instanceof URLClassLoader) {
+                @SuppressWarnings("resource")
+                final URLClassLoader classLoader2 = (URLClassLoader) classLoader;
+                final URL[] urls = classLoader2.getURLs();
+
+                for (final URL url : urls) {
+                    final File file = new File(url.getFile());
+
+                    if (file.getAbsolutePath().equals(jarFile.getAbsolutePath())) {
+                        System.out.println(jarFile + " exist");
+                        return true;
+                    }
+                }
+
+                System.out.println(jarFile + " not exist");
+                return false;
+            } else {
+                return false;
+            }
         }
     }
 }
