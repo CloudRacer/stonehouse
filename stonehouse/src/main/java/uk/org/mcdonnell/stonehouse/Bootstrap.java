@@ -13,18 +13,18 @@ import uk.org.mcdonnell.common.ClasspathHelper;
  */
 public final class Bootstrap {
     private final File DEFAULT_FOLDER = new File("./plugins");
-    private final String DEFAULT_FILE_FILTER = ".*.jar";
+    private final String[] DEFAULT_FILE_EXTENSION = new String[] { "jar" };
 
     public Bootstrap() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
-        new Bootstrap(DEFAULT_FOLDER, DEFAULT_FILE_FILTER);
+        new Bootstrap(DEFAULT_FOLDER, DEFAULT_FILE_EXTENSION);
     }
 
     public Bootstrap(final File folder) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
-        new Bootstrap(folder, DEFAULT_FILE_FILTER);
+        new Bootstrap(folder, DEFAULT_FILE_EXTENSION);
     }
 
-    private Bootstrap(final File folder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
-        ClasspathHelper.getInstance().addFolder(folder, fileFilter);
+    private Bootstrap(final File folder, final String[] extensions) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+        ClasspathHelper.getInstance().addFolder(folder, extensions);
     }
 
     public static void start() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {

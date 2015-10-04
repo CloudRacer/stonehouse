@@ -7,7 +7,9 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.List;
+import java.util.Collection;
+
+import org.apache.commons.io.FileUtils;
 
 public final class ClasspathHelper {
     private static SystemClasspath instance;
@@ -51,8 +53,8 @@ public final class ClasspathHelper {
          * @throws MalformedURLException
          * @throws IOException
          */
-        public void addFolder(final File pluginFolder, final String fileFilter) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
-            final List<File> fileList = FileHelper.getFileList(pluginFolder, fileFilter);
+        public void addFolder(final File pluginFolder, final String[] extensions) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+            final Collection<File> fileList = FileUtils.listFiles(pluginFolder, extensions, true);
 
             for (final File file : fileList) {
                 System.out.println(String.format("Adding the JAR \"%s\" to the JVM classpath...", file.getAbsolutePath()));

@@ -7,14 +7,12 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
-
-import uk.org.mcdonnell.common.FileHelper;
 
 public class BootstrapDefaultTest {
 
@@ -32,7 +30,8 @@ public class BootstrapDefaultTest {
             expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/weblogic-1.0-SNAPSHOT.jar")));
             expectedPluginFilenames.add(new File(String.format("%s%s", pluginFolder, "/wlfullclient.jar")));
 
-            final List<File> files = FileHelper.getFileList(pluginFolder, ".*.jar");
+            final Collection<File> files = FileUtils.listFiles(pluginFolder, new String[] { "jar" }, true);
+
             final Collection<File> missingPlugins = CollectionUtils.subtract(files, expectedPluginFilenames);
             assertTrue(String.format("Plugin(s) %s were not found.", missingPlugins.toString()), missingPlugins.size() == 0);
 
@@ -44,7 +43,7 @@ public class BootstrapDefaultTest {
         }
     }
 
-    public static boolean isJarInClasspath(File jarFile) {
+    private static boolean isJarInClasspath(File jarFile) {
         final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         if (classLoader instanceof URLClassLoader) {
@@ -55,7 +54,7 @@ public class BootstrapDefaultTest {
             for (final URL url : urls) {
                 final File file = new File(url.getFile());
 
-                if (file.getPath().endsWith(jarFile.getName())) {
+                if (file.getAbsolutePath().equals(jarFile.getAbsolutePath())) {
                     System.out.println(jarFile + " exist");
                     return true;
                 }
