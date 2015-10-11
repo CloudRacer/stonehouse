@@ -8,10 +8,10 @@ import javax.jms.Message;
 import javax.jms.QueueBrowser;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.common.Reflect;
-import uk.org.mcdonnell.common.vendor.configuration.VendorConfiguration;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
+import uk.org.mcdonnell.utility.common.vendor.configuration.VendorConfiguration;
+import uk.org.mcdonnell.utility.generic.Reflect;
 
 public abstract class DestinationStatisticsFactory implements DestinationStatistics {
 
