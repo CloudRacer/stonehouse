@@ -1,3 +1,3 @@
-mvn clean install -U
+mvn clean
 
 read -p "Press [Enter] key to start continue..."
