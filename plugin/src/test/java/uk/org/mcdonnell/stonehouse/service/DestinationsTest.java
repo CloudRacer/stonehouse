@@ -13,11 +13,14 @@ import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 import uk.org.mcdonnell.stonehouse.api.destination.Destination;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations;
 import uk.org.mcdonnell.stonehouse.helper.ActiveMQHelperBaseIT;
+import uk.org.mcdonnell.utility.common.Bootstrap;
 
 public class DestinationsTest extends ActiveMQHelperBaseIT {
 
     @BeforeClass
     public static void setupClass() throws Exception {
+        // Load plugin JAR files.
+        Bootstrap.start();
 
         // Start the ActiveMQ broker.
         getBroker();

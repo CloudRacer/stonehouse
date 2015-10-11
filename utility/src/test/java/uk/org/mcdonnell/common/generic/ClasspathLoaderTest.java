@@ -11,8 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import uk.org.mcdonnell.common.ClasspathHelper;
-
 public class ClasspathLoaderTest {
 
     @Test
@@ -21,7 +19,7 @@ public class ClasspathLoaderTest {
             final File pluginFolder = new File("../stonehouse/plugins");
             final String[] extensions = new String[] { "jar" };
 
-            ClasspathHelper.getInstance().addFolder(pluginFolder, extensions);
+            uk.org.mcdonnell.utility.generic.ClasspathHelper.getInstance().addFolder(pluginFolder, extensions);
 
             final Collection<File> files = FileUtils.listFiles(pluginFolder, extensions, true);
             for (final File file : files) {

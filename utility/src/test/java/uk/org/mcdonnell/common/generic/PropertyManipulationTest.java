@@ -9,7 +9,7 @@ import java.util.InvalidPropertiesFormatException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import uk.org.mcdonnell.common.PropertyManipulation;
+import uk.org.mcdonnell.utility.common.PropertyManipulation;
 
 public class PropertyManipulationTest {
 
@@ -31,7 +31,7 @@ public class PropertyManipulationTest {
         }
     }
 
-    private PropertyManipulation getPropertyManipulation()
+    private uk.org.mcdonnell.utility.common.PropertyManipulation getPropertyManipulation()
             throws InvalidPropertiesFormatException, IOException {
         if (propertyManipulation == null) {
             propertyManipulation = new PropertyManipulation(

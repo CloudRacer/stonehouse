@@ -7,11 +7,11 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import uk.org.mcdonnell.common.PropertyManipulation;
+import uk.org.mcdonnell.utility.common.PropertyManipulation;
 
 public class ProviderConnections {
 
-    private PropertyManipulation propertyManipulation;
+    private uk.org.mcdonnell.utility.common.PropertyManipulation propertyManipulation;
 
     Map<Integer, ProviderConnectionFactory> providerConnectionList = null;
 

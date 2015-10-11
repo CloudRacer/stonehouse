@@ -1,4 +1,4 @@
-package uk.org.mcdonnell.common;
+package uk.org.mcdonnell.utility.generic;
 
 import java.io.File;
 import java.io.IOException;

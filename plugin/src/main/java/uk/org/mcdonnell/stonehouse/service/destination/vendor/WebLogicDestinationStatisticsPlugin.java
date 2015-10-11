@@ -5,11 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
-import uk.org.mcdonnell.common.Reflect;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.destination.Destination;
 import uk.org.mcdonnell.stonehouse.api.destination.Destinations.DestinationType;
 import uk.org.mcdonnell.stonehouse.api.destination.statistics.DestinationStatistics;
+import uk.org.mcdonnell.utility.generic.Reflect;
 
 public class WebLogicDestinationStatisticsPlugin extends Destination implements DestinationStatistics {
 

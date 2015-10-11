@@ -1,4 +1,4 @@
-package uk.org.mcdonnell.common;
+package uk.org.mcdonnell.utility.generic;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
+import uk.org.mcdonnell.utility.common.Bootstrap;
 
 public class ProviderContextTest {
 

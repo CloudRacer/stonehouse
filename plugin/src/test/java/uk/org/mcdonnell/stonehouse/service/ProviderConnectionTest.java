@@ -6,16 +6,23 @@ import java.util.Hashtable;
 
 import javax.naming.Context;
 
-import junitx.util.PrivateAccessor;
-
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.org.mcdonnell.common.PropertyManipulation;
+import junitx.util.PrivateAccessor;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
+import uk.org.mcdonnell.utility.common.Bootstrap;
+import uk.org.mcdonnell.utility.common.PropertyManipulation;
 
 public class ProviderConnectionTest {
+
+    @BeforeClass
+    public static void setupClass() throws Exception {
+        // Load plugin JAR files.
+        Bootstrap.start();
+    }
 
     @SuppressWarnings("unchecked")
     @Test
@@ -39,7 +46,7 @@ public class ProviderConnectionTest {
     @Test
     public void testGetAllProviders() throws Throwable {
         final ProviderConnections providerConnectionFactory = new ProviderConnections();
-        PropertyManipulation propertyManipulation;
+        uk.org.mcdonnell.utility.common.PropertyManipulation propertyManipulation;
         providerConnectionFactory.getAllProviders();
 
         Assert.assertNotNull("Not provider definitions retrieved from the configuration file.", providerConnectionFactory.getAllProviders());

@@ -14,13 +14,16 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import uk.org.mcdonnell.utility.common.Bootstrap;
+
 public class BootstrapDefaultTest {
 
     @Test
     public void loadDefaultBootstrap() {
         final File pluginFolder = new File("./plugins");
         try {
-            new Bootstrap();
+            // Load plugin JAR files.
+            Bootstrap.start();
 
             // final Set<String> expectedPluginFilenames = new HashSet<String>(Arrays.asList("./plugins/activemq-all-5.11.1.jar", "./plugins/plugin-1.0-SNAPSHOT.jar", "./plugins/provider-1.0-SNAPSHOT.jar", "./plugins/weblogic-1.0-SNAPSHOT.jar", "./plugins/wlfullclient.jar"));
             final Set<File> expectedPluginFilenames = new HashSet<File>();
