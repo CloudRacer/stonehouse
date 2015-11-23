@@ -76,7 +76,7 @@ public final class ClasspathHelper {
          * @throws NoSuchMethodException
          * @throws IOException
          */
-        public static void addFile(final String filename) throws NoSuchMethodException, SecurityException,
+        private static void addFile(final String filename) throws NoSuchMethodException, SecurityException,
                 IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException,
                 IOException {
             final File file = new File(filename);
