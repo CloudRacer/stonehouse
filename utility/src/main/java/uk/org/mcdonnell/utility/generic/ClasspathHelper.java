@@ -7,7 +7,9 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
@@ -60,7 +62,7 @@ public final class ClasspathHelper {
             for (final File file : fileList) {
                 System.out.println(String.format("Adding the JAR \"%s\" to the JVM classpath...", file.getAbsolutePath()));
 
-                SystemClasspath.addFile(file.getAbsolutePath());
+                SystemClasspath.addFile(file.toURI().toURL());
             }
         }
 
@@ -77,33 +79,22 @@ public final class ClasspathHelper {
          * @throws NoSuchMethodException
          * @throws IOException
          */
-        private static void addFile(final String filename) throws NoSuchMethodException, SecurityException,
-                IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException,
-                IOException {
-            final File file = new File(filename);
-            if (!isJarInClasspath(file)) {
-                addURL(file.toURI().toURL());
+        private static void addFile(final URL url) throws MalformedURLException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
+            if (!isJarInClasspath(url)) {
+                addURL(url);
             }
         }
 
-        public String getClasspath() {
+        private static List<URL> getClasspath() {
             final ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
-            final URL[] urls = ((URLClassLoader) sysClassLoader).getURLs();
-            String classpath = null;
-
-            for (int i = 0; i < urls.length; i++) {
-                if (classpath != null) {
-                    classpath = classpath + ":" + urls[i].getFile();
-                } else {
-                    classpath = urls[i].getFile();
-                }
-            }
-
-            return classpath;
+            final URL[] urlArray = ((URLClassLoader) sysClassLoader).getURLs();
+            List<URL> urls = Arrays.asList(urlArray);
+        
+            return urls;
         }
 
         /**
-         * Adds the content pointed by the URL to the JVM classpath.
+         * Adds the content, pointed to by the URL, to the JVM classpath.
          *
          * @param url
          *            the URL pointing to the content to be added
@@ -126,26 +117,9 @@ public final class ClasspathHelper {
             });
         }
 
-        private static boolean isJarInClasspath(File jarFile) {
-            final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-            if (classLoader instanceof URLClassLoader) {
-                @SuppressWarnings("resource")
-                final URLClassLoader classLoader2 = (URLClassLoader) classLoader;
-                final URL[] urls = classLoader2.getURLs();
-
-                for (final URL url : urls) {
-                    final File file = new File(url.getFile());
-
-                    if (file.getAbsolutePath().equals(jarFile.getAbsolutePath())) {
-                        return true;
-                    }
-                }
-
-                return false;
-            } else {
-                return false;
-            }
+        private static boolean isJarInClasspath(URL url) throws MalformedURLException {
+            List<URL> urls = getClasspath();
+            return urls.contains(url);
         }
     }
 }
