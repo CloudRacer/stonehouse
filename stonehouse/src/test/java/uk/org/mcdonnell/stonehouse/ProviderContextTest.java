@@ -3,8 +3,6 @@ package uk.org.mcdonnell.stonehouse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
 
@@ -16,11 +14,12 @@ import org.junit.Test;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnectionFactory;
 import uk.org.mcdonnell.stonehouse.api.connection.ProviderConnections;
 import uk.org.mcdonnell.utility.common.Bootstrap;
+import uk.org.mcdonnell.utility.common.BootstrapException;
 
 public class ProviderContextTest {
 
     @BeforeClass
-    public static void setupClass() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, MalformedURLException, IOException {
+    public static void setupClass() throws BootstrapException {
         new Bootstrap();
     }
 

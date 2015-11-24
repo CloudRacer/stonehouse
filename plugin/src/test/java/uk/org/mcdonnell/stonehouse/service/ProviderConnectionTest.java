@@ -21,7 +21,7 @@ public class ProviderConnectionTest {
     @BeforeClass
     public static void setupClass() throws Exception {
         // Load plugin JAR files.
-        Bootstrap.start();
+        new Bootstrap();
     }
 
     @SuppressWarnings("unchecked")

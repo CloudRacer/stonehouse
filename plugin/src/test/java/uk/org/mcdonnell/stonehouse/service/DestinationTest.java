@@ -26,7 +26,7 @@ public class DestinationTest extends ActiveMQHelperBaseIT {
     @BeforeClass
     public static void setupClass() throws Exception {
         // Load plugin JAR files.
-        Bootstrap.start();
+        new Bootstrap();
 
         // Start the ActiveMQ broker.
         getBroker();

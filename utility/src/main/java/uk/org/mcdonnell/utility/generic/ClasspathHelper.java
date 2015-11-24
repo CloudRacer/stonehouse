@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 
 public final class ClasspathHelper {
     private static SystemClasspath instance;
@@ -36,6 +37,9 @@ public final class ClasspathHelper {
      * Add a JAR to the JVM classpath, during runtime.
      */
     public static class SystemClasspath {
+
+        static Logger log = Logger.getLogger(SystemClasspath.class.getName());
+
         private SystemClasspath() {
         }
 
@@ -57,11 +61,11 @@ public final class ClasspathHelper {
          * @throws IOException
          */
         public void addFolder(final File pluginFolder, final String[] extensions) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MalformedURLException, IOException {
+            log.info(String.format("Adding the JAR files in the folder \"%s\" to the JVM classpath...", pluginFolder.getAbsolutePath()));
+
             final Collection<File> fileList = FileUtils.listFiles(pluginFolder, extensions, true);
 
             for (final File file : fileList) {
-                System.out.println(String.format("Adding the JAR \"%s\" to the JVM classpath...", file.getAbsolutePath()));
-
                 SystemClasspath.addFile(file.toURI().toURL());
             }
         }
@@ -89,7 +93,7 @@ public final class ClasspathHelper {
             final ClassLoader sysClassLoader = ClassLoader.getSystemClassLoader();
             final URL[] urlArray = ((URLClassLoader) sysClassLoader).getURLs();
             List<URL> urls = Arrays.asList(urlArray);
-        
+
             return urls;
         }
 
@@ -107,6 +111,8 @@ public final class ClasspathHelper {
          */
         private static void addURL(final URL url) throws IOException, NoSuchMethodException, SecurityException,
                 IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            log.info(String.format("Adding the JAR \"%s\" to the JVM classpath...", url.getFile()));
+
             final URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
             final Class<?> sysclass = URLClassLoader.class;
 
