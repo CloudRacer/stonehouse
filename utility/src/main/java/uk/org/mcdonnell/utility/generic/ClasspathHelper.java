@@ -34,7 +34,8 @@ public final class ClasspathHelper {
      * Add a JAR to the JVM classpath, during runtime.
      */
     public static class SystemClasspath {
-        private SystemClasspath() {}
+        private SystemClasspath() {
+        }
 
         /**
          * Parameters of the method to add a URL to the System classes.
@@ -137,12 +138,10 @@ public final class ClasspathHelper {
                     final File file = new File(url.getFile());
 
                     if (file.getAbsolutePath().equals(jarFile.getAbsolutePath())) {
-                        System.out.println(jarFile + " exist");
                         return true;
                     }
                 }
 
-                System.out.println(jarFile + " not exist");
                 return false;
             } else {
                 return false;
