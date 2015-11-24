@@ -36,6 +36,7 @@ public class BootstrapDefaultTest {
 
         actualPluginFiles = FileUtils.listFiles(pluginFolder, new String[] { "jar" }, true);
 
+        // Confirm that the default plugin files are present, and available for testing with.
         assertEqualCollections(expectedPluginFiles, actualPluginFiles);
     }
 
