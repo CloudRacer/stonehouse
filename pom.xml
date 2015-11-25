@@ -29,6 +29,7 @@
         <module>plugin</module>
         <module>provider</module>
         <module>stonehouse</module>
+        <module>spa</module>
     </modules>
 
     <dependencies>
